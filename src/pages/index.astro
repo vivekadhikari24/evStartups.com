@@ -1,0 +1,555 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getCollection, getEntry } from 'astro:content';
+import { getCompanyMeta, getCompanyDomain, getCompanyLogoUrl, CATEGORY_CARD_META } from '../utils/companyMeta';
+
+const categories = await getCollection('categories');
+const companies = await getCollection('companies');
+const alternatives = await getCollection('alternatives');
+
+const companiesWithData = await Promise.all(
+  companies.map(async (company) => {
+    const category = await getEntry(company.data.category);
+    const domain = getCompanyDomain(company.data.website_url, company.id);
+    const logoUrl = getCompanyLogoUrl(company.data.website_url, company.id, 128);
+    const meta = getCompanyMeta(company.id, company.data.tagline);
+    return {
+      ...company,
+      categoryData: category?.data,
+      domain,
+      logoUrl,
+      meta,
+    };
+  })
+);
+
+const alternativesWithCompanies = await Promise.all(
+  alternatives.map(async (alt) => {
+    const rel = await Promise.all(alt.data.related_companies.map((ref) => getEntry(ref)));
+    const valid = rel.filter(Boolean).map((c) => {
+      const domain = getCompanyDomain(c.data.website_url, c.id);
+      const logoUrl = getCompanyLogoUrl(c.data.website_url, c.id, 64);
+      return {
+        ...c,
+        domain,
+        logoUrl,
+      };
+    });
+    return {
+      ...alt,
+      related: valid,
+    };
+  })
+);
+
+// Structured Data: WebSite Schema + ItemList Schema for Featured Companies
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'evStartups.com',
+  url: 'https://www.evstartups.com',
+  description: 'Commercial EV fleet software, depot charging management, and telematics directory.',
+};
+
+const itemListSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Featured Commercial EV Fleet Software Companies',
+  description: 'Verified directory of commercial EV fleet software, depot charging management systems, and telematics providers.',
+  numberOfItems: companiesWithData.length,
+  itemListElement: companiesWithData.map((company, index) => ({
+    '@type': 'ListItem',
+    position: index + 1,
+    name: company.data.name,
+    url: `https://www.evstartups.com/companies/${company.id}`,
+    description: company.meta.summary,
+  })),
+};
+
+const jsonLd = [websiteSchema, itemListSchema];
+---
+
+<Layout
+  title="Commercial EV Fleet Software & Charging Directory | evStartups.com"
+  description="Search, benchmark, and evaluate verified commercial EV charging software, smart load balancing algorithms, and fleet telematics platforms."
+  jsonLd={jsonLd}
+>
+  <!-- ================= CRUNCHBASE-STYLE HERO SECTION ================= -->
+  <section class="relative overflow-hidden bg-[#080d1a] py-16 sm:py-24 text-white border-b border-slate-800/80">
+    <!-- Atmospheric Ambient Glows -->
+    <div class="pointer-events-none absolute -top-40 left-1/2 -translate-x-1/2 h-[500px] w-[900px] rounded-full bg-emerald-500/10 blur-[130px]"></div>
+    <div class="pointer-events-none absolute top-1/2 -right-40 h-[400px] w-[500px] rounded-full bg-teal-500/10 blur-[110px]"></div>
+
+    <div class="relative z-10 mx-auto max-w-6xl px-4 sm:px-6">
+      
+      <!-- Top Dual-Column: Headline & Live Floating Preview Widget -->
+      <div class="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-center">
+        
+        <!-- Left Column: Crunchbase Bold Title & Interactive Search -->
+        <div class="lg:col-span-7 space-y-6">
+          <h1 class="text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl font-['Plus_Jakarta_Sans'] leading-[1.12]">
+            Commercial EV Fleet Software & Charging Directory
+          </h1>
+
+          <p class="max-w-xl text-base sm:text-lg text-slate-300 leading-relaxed">
+            Search, benchmark, and evaluate verified commercial EV charging software, smart load balancing algorithms, and fleet telematics platforms.
+          </p>
+
+          <!-- Crunchbase-Style Integrated Search Box -->
+          <div class="max-w-xl pt-2">
+            <div class="relative flex items-center rounded-2xl bg-white p-1.5 shadow-2xl shadow-emerald-950/50 border border-slate-200">
+              <div class="pointer-events-none pl-3.5 text-slate-400">
+                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+              </div>
+              <input
+                type="text"
+                id="startupSearch"
+                aria-label="Search commercial EV fleet startups, software, and tools"
+                placeholder="Search company, protocol (OCPP), or specialty..."
+                class="block w-full bg-transparent py-3 pl-3 pr-4 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none"
+              />
+              <button
+                type="button"
+                id="heroSearchBtn"
+                class="shrink-0 rounded-xl bg-emerald-500 px-5 py-3 text-xs font-bold text-slate-950 shadow-xs transition hover:bg-emerald-400 cursor-pointer"
+              >
+                Search
+              </button>
+            </div>
+
+            <!-- Quick Filter Chips -->
+            <div class="mt-4 flex flex-wrap items-center gap-2 text-xs">
+              <span class="text-slate-400 font-medium">Quick Filters:</span>
+              <button type="button" class="quick-tag rounded-lg bg-slate-900/90 hover:bg-emerald-950/80 hover:text-emerald-300 hover:border-emerald-500/40 border border-slate-800 px-3 py-1 font-medium text-slate-300 transition cursor-pointer" data-tag="Load Balancing">
+                Load Balancing
+              </button>
+              <button type="button" class="quick-tag rounded-lg bg-slate-900/90 hover:bg-emerald-950/80 hover:text-emerald-300 hover:border-emerald-500/40 border border-slate-800 px-3 py-1 font-medium text-slate-300 transition cursor-pointer" data-tag="Telematics">
+                Telematics
+              </button>
+              <button type="button" class="quick-tag rounded-lg bg-slate-900/90 hover:bg-emerald-950/80 hover:text-emerald-300 hover:border-emerald-500/40 border border-slate-800 px-3 py-1 font-medium text-slate-300 transition cursor-pointer" data-tag="Depot">
+                Depot CPMS
+              </button>
+              <button type="button" class="quick-tag rounded-lg bg-slate-900/90 hover:bg-emerald-950/80 hover:text-emerald-300 hover:border-emerald-500/40 border border-slate-800 px-3 py-1 font-medium text-slate-300 transition cursor-pointer" data-tag="White-Label">
+                White-Label
+              </button>
+              <button type="button" class="quick-tag rounded-lg bg-slate-900/90 hover:bg-emerald-950/80 hover:text-emerald-300 hover:border-emerald-500/40 border border-slate-800 px-3 py-1 font-medium text-slate-300 transition cursor-pointer" data-tag="Hardware">
+                DC Fast Hardware
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Crunchbase Signature Floating Live Preview Widget -->
+        <div class="lg:col-span-5">
+          <div class="rounded-2xl border border-slate-800/80 bg-slate-900/80 p-5 shadow-2xl backdrop-blur-xl transition hover:border-emerald-500/40">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-3.5">
+              <div class="flex items-center gap-2">
+                <span class="flex h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span class="text-xs font-bold uppercase tracking-wider text-slate-200">Verified Platform Index</span>
+              </div>
+              <span class="rounded bg-emerald-950/60 border border-emerald-800/50 px-2 py-0.5 text-[11px] font-semibold text-emerald-300">
+                Verified Directory Hub
+              </span>
+            </div>
+
+            <!-- Live Mini Rows -->
+            <div class="mt-3.5 divide-y divide-slate-800/60">
+              {companiesWithData.slice(0, 5).map((comp) => (
+                <a
+                  href={`/companies/${comp.id}`}
+                  class="flex items-center justify-between py-2.5 px-2 rounded-lg hover:bg-slate-800/60 transition group"
+                >
+                  <div class="flex items-center gap-3">
+                    <img
+                      src={comp.logoUrl}
+                      alt={`${comp.data.name} icon`}
+                      width="24"
+                      height="24"
+                      loading="lazy"
+                      decoding="async"
+                      class="h-6 w-6 object-contain rounded bg-white p-0.5"
+                      onerror="this.style.display='none';"
+                    />
+                    <div>
+                      <div class="flex items-center gap-2">
+                        <span class="text-sm font-bold text-slate-200 group-hover:text-emerald-400 transition font-['Plus_Jakarta_Sans']">
+                          {comp.data.name}
+                        </span>
+                        <span class="text-[10px] text-slate-500">&bull; {comp.data.headquarters}</span>
+                      </div>
+                      <span class="text-[11px] text-slate-400 block line-clamp-1">
+                        {comp.meta.specs}
+                      </span>
+                    </div>
+                  </div>
+                  <span class="text-xs font-semibold text-emerald-400 opacity-0 group-hover:opacity-100 transition">
+                    &rarr;
+                  </span>
+                </a>
+              ))}
+            </div>
+
+            <div class="mt-3 border-t border-slate-800 pt-3 flex items-center justify-between text-[11px] text-slate-400">
+              <span>OCPP 1.6J & 2.0.1 Ready</span>
+              <a href="/companies" class="text-emerald-400 hover:text-emerald-300 font-semibold transition">
+                View All Vendors &rarr;
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ================= VALUE PILLARS (Crunchbase 3 Glass Cards) ================= -->
+      <div class="mt-20 sm:mt-28">
+        <div class="text-center max-w-2xl mx-auto mb-10">
+          <h2 class="text-2xl font-extrabold tracking-tight text-white sm:text-3xl font-['Plus_Jakarta_Sans']">
+            Verified Technical Specifications & Architecture
+          </h2>
+          <p class="mt-3 text-sm sm:text-base text-slate-400">
+            Hardware-agnostic protocol benchmarks, OCPP compliance validation, and depot energy orchestration.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 gap-5 md:grid-cols-3">
+          <!-- Pillar 1 -->
+          <div class="rounded-2xl border border-slate-800 bg-slate-900/60 p-6 backdrop-blur-sm hover:border-emerald-500/40 transition">
+            <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-500/10 text-emerald-400 font-bold mb-4">
+              01
+            </div>
+            <h3 class="text-base font-bold text-white font-['Plus_Jakarta_Sans']">
+              Verified Technical Protocols
+            </h3>
+            <p class="mt-2 text-xs leading-relaxed text-slate-400">
+              100% hardware-agnostic verification across OCPP 1.6J, 2.0.1, and ISO 15118 Plug & Charge protocols without vendor lock-in.
+            </p>
+          </div>
+
+          <!-- Pillar 2 -->
+          <div class="rounded-2xl border border-slate-800 bg-slate-900/60 p-6 backdrop-blur-sm hover:border-emerald-500/40 transition">
+            <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-teal-500/10 text-teal-400 font-bold mb-4">
+              02
+            </div>
+            <h3 class="text-base font-bold text-white font-['Plus_Jakarta_Sans']">
+              Depot-Tested Benchmarks
+            </h3>
+            <p class="mt-2 text-xs leading-relaxed text-slate-400">
+              Mathematical load balancing evaluation to eliminate costly utility peak demand charges by 40–60% during simultaneous charging.
+            </p>
+          </div>
+
+          <!-- Pillar 3 -->
+          <div class="rounded-2xl border border-slate-800 bg-slate-900/60 p-6 backdrop-blur-sm hover:border-emerald-500/40 transition">
+            <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-cyan-500/10 text-cyan-400 font-bold mb-4">
+              03
+            </div>
+            <h3 class="text-base font-bold text-white font-['Plus_Jakarta_Sans']">
+              Head-to-Head Comparative Architecture
+            </h3>
+            <p class="mt-2 text-xs leading-relaxed text-slate-400">
+              Side-by-side competitor matrices and objective buyer guides tailored to delivery vans, school buses, and class 8 trucks.
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Atmospheric Emerald Ambient Flare Transition (Crunchbase Style) -->
+    <div class="pointer-events-none absolute bottom-0 left-1/2 -translate-x-1/2 h-36 w-[800px] rounded-full bg-gradient-to-t from-emerald-500/25 via-cyan-500/15 to-transparent blur-[70px]"></div>
+  </section>
+
+  <!-- ================= BODY CONTENT AREA (bg-slate-50 transition) ================= -->
+  <div class="bg-slate-50 border-t border-slate-200/60 pb-20">
+    
+    <!-- ================= CRUNCHBASE IMPACT METRICS BAR ================= -->
+    <div class="relative z-20 -mt-10 mx-auto max-w-5xl px-4 sm:px-6">
+      <div class="rounded-2xl border border-slate-200/90 bg-white p-6 sm:p-8 shadow-xl shadow-slate-900/5">
+        <div class="grid grid-cols-2 gap-6 md:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-slate-100 text-center">
+          <div class="pt-2 md:pt-0">
+            <span class="block text-3xl sm:text-4xl font-extrabold text-slate-950 font-['Plus_Jakarta_Sans']">15+</span>
+            <span class="mt-1 block text-xs font-semibold text-slate-500 uppercase tracking-wider">Data Points Verified</span>
+          </div>
+          <div class="pt-4 md:pt-0 md:pl-6">
+            <span class="block text-3xl sm:text-4xl font-extrabold text-emerald-600 font-['Plus_Jakarta_Sans']">100%</span>
+            <span class="mt-1 block text-xs font-semibold text-slate-500 uppercase tracking-wider">OCPP 1.6J / 2.0.1</span>
+          </div>
+          <div class="pt-4 md:pt-0 md:pl-6">
+            <span class="block text-3xl sm:text-4xl font-extrabold text-slate-950 font-['Plus_Jakarta_Sans']">40–60%</span>
+            <span class="mt-1 block text-xs font-semibold text-slate-500 uppercase tracking-wider">Peak Demand Savings</span>
+          </div>
+          <div class="pt-4 md:pt-0 md:pl-6">
+            <span class="block text-3xl sm:text-4xl font-extrabold text-emerald-600 font-['Plus_Jakarta_Sans']">99.5%+</span>
+            <span class="mt-1 block text-xs font-semibold text-slate-500 uppercase tracking-wider">Target Uptime</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6 space-y-16">
+
+      <!-- Categories Section (Balanced 3-Card Desktop Grid) -->
+      <section>
+        <div class="flex items-center justify-between border-b border-slate-200 pb-4">
+          <div>
+            <h2 class="text-2xl font-bold tracking-tight text-slate-950 font-['Plus_Jakarta_Sans']">
+              Software Categories
+            </h2>
+            <p class="text-xs text-slate-500 mt-1">Browse software ecosystems by architectural category</p>
+          </div>
+          <a href="/categories" class="text-xs font-bold text-emerald-600 hover:text-emerald-700 transition">
+            View all categories &rarr;
+          </a>
+        </div>
+
+        <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          <!-- Active Category Cards -->
+          {categories.map((cat) => {
+            const cardMeta = CATEGORY_CARD_META[cat.id] || {
+              summary: cat.data.description.slice(0, 140) + '...',
+              spec: 'Verified B2B Silo',
+            };
+            return (
+              <div class="flex flex-col justify-between rounded-2xl border border-slate-200 bg-white p-7 shadow-xs hover:border-emerald-200 hover:shadow-md transition">
+                <div>
+                  <div class="flex items-center justify-between">
+                    <span class="text-xs font-semibold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-md border border-emerald-100">
+                      Active Silo
+                    </span>
+                    <span class="text-xs font-medium text-slate-400">
+                      Verified Directory
+                    </span>
+                  </div>
+
+                  <h3 class="mt-3 text-xl font-bold text-slate-900 font-['Plus_Jakarta_Sans'] hover:text-emerald-600 transition">
+                    <a href={`/categories/${cat.id}`}>
+                      {cat.data.title}
+                    </a>
+                  </h3>
+
+                  <p class="mt-2 text-sm text-slate-600 leading-relaxed">
+                    {cardMeta.summary}
+                  </p>
+                </div>
+
+                <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
+                  <a
+                    href={`/categories/${cat.id}`}
+                    class="text-xs font-bold text-emerald-600 hover:text-emerald-800 transition"
+                  >
+                    Browse Category &rarr;
+                  </a>
+                  <span class="text-xs text-slate-400">{cardMeta.spec}</span>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+
+      <!-- Featured Companies Section (Fully Clickable Cards with Sleek Inline Specs) -->
+      <section>
+        <div class="flex items-center justify-between border-b border-slate-200 pb-4">
+          <div>
+            <h2 class="text-2xl font-bold tracking-tight text-slate-950 font-['Plus_Jakarta_Sans']">
+              Featured Companies
+            </h2>
+            <p class="text-xs text-slate-500 mt-1">Verified commercial EV software vendors and platform profiles</p>
+          </div>
+          <a href="/companies" class="text-xs font-bold text-emerald-600 hover:text-emerald-700 transition">
+            Full Directory &rarr;
+          </a>
+        </div>
+
+        <div id="startupsGrid" class="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {companiesWithData.map((company) => {
+            const initials = company.data.name.slice(0, 2).toUpperCase();
+            return (
+              <a
+                href={`/companies/${company.id}`}
+                class="startup-card group flex flex-col justify-between rounded-2xl border border-slate-200 bg-white p-6 shadow-xs hover:border-emerald-500 hover:shadow-md transition-all duration-200"
+                data-search={`${company.data.name} ${company.data.headquarters} ${company.meta.specs} ${company.meta.summary}`.toLowerCase()}
+              >
+                <div>
+                  <div class="flex items-center gap-3.5">
+                    <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-slate-100 bg-slate-50 p-2 shadow-2xs group-hover:border-emerald-100 transition">
+                      <img
+                        src={company.logoUrl}
+                        alt={`${company.data.name} logo`}
+                        loading="lazy"
+                        decoding="async"
+                        width="32"
+                        height="32"
+                        class="h-7 w-7 object-contain rounded"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                      />
+                      <span class="hidden h-7 w-7 items-center justify-center font-bold text-xs text-slate-700">
+                        {initials}
+                      </span>
+                    </div>
+                    <div>
+                      <h3 class="text-base font-bold text-slate-900 group-hover:text-emerald-600 transition font-['Plus_Jakarta_Sans']">
+                        {company.data.name}
+                      </h3>
+                      <span class="text-xs text-slate-500">
+                        {company.data.headquarters}
+                      </span>
+                    </div>
+                  </div>
+
+                  <!-- Sleek Inline Technical Specs String (No bulky pills) -->
+                  <p class="mt-3.5 text-sm text-slate-500 font-medium tracking-tight">
+                    {company.meta.specs}
+                  </p>
+
+                  <!-- Semantic Description Paragraph -->
+                  <p class="mt-2 text-xs text-slate-600 leading-relaxed">
+                    {company.meta.summary}
+                  </p>
+                </div>
+
+                <div class="mt-6 flex items-center justify-between border-t border-slate-100 pt-4">
+                  <span class="text-xs font-bold text-emerald-600 group-hover:text-emerald-700 transition">
+                    View Profile &rarr;
+                  </span>
+                  <span class="text-xs text-slate-400 group-hover:text-slate-600 transition">
+                    {company.domain}
+                  </span>
+                </div>
+              </a>
+            );
+          })}
+        </div>
+
+        <div id="noStartupsFound" class="hidden rounded-xl border border-dashed border-slate-300 p-8 text-center mt-6 bg-white">
+          <p class="text-sm font-medium text-slate-600">No companies found matching your search.</p>
+        </div>
+      </section>
+
+      <!-- Competitor Comparisons Section -->
+      <section>
+        <div class="flex items-center justify-between border-b border-slate-200 pb-4">
+          <div>
+            <h2 class="text-2xl font-bold tracking-tight text-slate-950 font-['Plus_Jakarta_Sans']">
+              Competitor Comparisons
+            </h2>
+            <p class="text-xs text-slate-500 mt-1">Side-by-side alternative guides and evaluation</p>
+          </div>
+          <a href="/alternatives" class="text-xs font-bold text-emerald-600 hover:text-emerald-700 transition">
+            View all comparisons &rarr;
+          </a>
+        </div>
+
+        <div class="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {alternativesWithCompanies.map((alt) => (
+            <div class="flex flex-col justify-between rounded-2xl border border-slate-200 bg-white p-6 shadow-xs hover:border-emerald-300 hover:shadow-md transition">
+              <div>
+                <span class="inline-flex items-center rounded-md bg-slate-100 px-2.5 py-0.5 text-xs font-semibold text-slate-700">
+                  {alt.data.target_keyword}
+                </span>
+
+                <h3 class="mt-3 text-lg font-bold text-slate-900 font-['Plus_Jakarta_Sans'] hover:text-emerald-600 transition">
+                  <a href={`/alternatives/${alt.id}`}>
+                    {alt.data.title}
+                  </a>
+                </h3>
+
+                <!-- Compared Logos -->
+                <div class="mt-4 border-t border-slate-100 pt-3">
+                  <span class="text-xs font-medium text-slate-400 block mb-2">Compared Platforms:</span>
+                  <div class="flex flex-wrap gap-2">
+                    {alt.related.map((comp) => (
+                      <span class="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-slate-50 px-2.5 py-1 text-xs font-medium text-slate-700 shadow-2xs">
+                        <img
+                          src={comp.logoUrl}
+                          alt={`${comp.data.name} icon`}
+                          width="16"
+                          height="16"
+                          loading="lazy"
+                          decoding="async"
+                          class="h-4 w-4 object-contain rounded"
+                          onerror="this.style.display='none';"
+                        />
+                        <span>{comp.data.name}</span>
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-6 border-t border-slate-100 pt-4">
+                <a
+                  href={`/alternatives/${alt.id}`}
+                  class="text-xs font-bold text-emerald-600 hover:text-emerald-800 transition"
+                >
+                  Read Comparison &rarr;
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <script is:inline>
+    const searchInput = document.getElementById('startupSearch');
+    const heroSearchBtn = document.getElementById('heroSearchBtn');
+    const cards = document.querySelectorAll('.startup-card');
+    const noResults = document.getElementById('noStartupsFound');
+    const quickTags = document.querySelectorAll('.quick-tag');
+
+    function applyFilter(term) {
+      let count = 0;
+      cards.forEach((card) => {
+        const text = card.getAttribute('data-search') || '';
+        if (text.includes(term)) {
+          card.style.display = 'flex';
+          count++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      if (noResults) {
+        noResults.style.display = count === 0 ? 'block' : 'none';
+      }
+    }
+
+    if (searchInput) {
+      searchInput.addEventListener('input', (e) => {
+        applyFilter(e.target.value.toLowerCase().trim());
+      });
+    }
+
+    if (heroSearchBtn) {
+      heroSearchBtn.addEventListener('click', () => {
+        if (searchInput) {
+          applyFilter(searchInput.value.toLowerCase().trim());
+          const targetSection = document.getElementById('startupsGrid');
+          if (targetSection) {
+            targetSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }
+        }
+      });
+    }
+
+    quickTags.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const tag = btn.getAttribute('data-tag') || '';
+        if (searchInput) {
+          searchInput.value = tag;
+          applyFilter(tag.toLowerCase().trim());
+          const targetSection = document.getElementById('startupsGrid');
+          if (targetSection) {
+            targetSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }
+        }
+      });
+    });
+  </script>
+</Layout>

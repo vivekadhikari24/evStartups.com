@@ -1,0 +1,82 @@
+{
+  "name": "Tritium",
+  "website_url": "https://tritiumcharging.com",
+  "founded_year": 2001,
+  "headquarters": "Brisbane, Australia",
+  "category": "commercial-ev-charging-hardware",
+  "tagline": "Liquid-Cooled Commercial DC Fast Chargers & Modular High-Power Fleet Infrastructure",
+  "overview": "Tritium is an international designer and manufacturer of direct-current (DC) fast charging hardware for commercial electric vehicle fleets and public fast-charging networks. Founded in 2001 in Brisbane, Australia by Paul Sernia, David Finn, and James Kennedy, Tritium pioneered liquid-cooled sealed enclosure technology for DC fast chargers. By isolating power electronics inside a sealed IP65 liquid-cooled chamber, Tritium chargers operate reliably in harsh fleet environments containing dust, moisture, salt air, and airborne particulate matter without conventional air filters.",
+  "key_features": [
+    {
+      "title": "Patented Sealed Liquid-Cooled Architecture",
+      "description": "Completely sealed IP65 enclosure isolating internal power electronics from airborne dirt, dust, and corrosive moisture, eliminating recurring air filter replacement costs."
+    },
+    {
+      "title": "Tritium PKM150 Modular Fleet Architecture",
+      "description": "Shared DC power grid distributing up to 150kW across dual dispensers, optimizing high-density commercial depot charging while lowering installation civil costs."
+    },
+    {
+      "title": "Compact Depot Footprint & High Power Density",
+      "description": "Slim physical profile engineered for narrow commercial parking spaces, municipal depots, and perimeter fence-line charging deployments."
+    },
+    {
+      "title": "ISO 15118 Plug & Charge and Automated Authentication",
+      "description": "Native cryptographic support for ISO 15118 protocol, allowing fleet vehicles to initiate charging automatically upon plugging in without driver RFID scans."
+    },
+    {
+      "title": "OCPP Protocol Interoperability",
+      "description": "Certified OCPP 1.6J and OCPP 2.0.1 compliance enabling connection to enterprise fleet charging management platforms and energy load orchestrators."
+    }
+  ],
+  "protocols": [
+    "OCPP 1.6J",
+    "OCPP 2.0.1",
+    "ISO 15118 (Plug & Charge)",
+    "DIN 70121",
+    "CCS1 / CCS2 / NACS Compatible"
+  ],
+  "ideal_for": [
+    "Fleet Depots in Harsh, Dusty, or High-Humidity Climates",
+    "Last-Mile Delivery Vans Requiring High-Density Parking",
+    "Commercial Operators Seeking Filter-Free Low-Maintenance Hardware",
+    "Municipal Vehicle Hubs with Perimeter Wall Charging Stalls",
+    "Highway Commercial Electrification Corridors"
+  ],
+  "hardware_compatibility": "Open OCPP-compliant hardware connecting seamlessly with leading cloud fleet software platforms including Ampcontrol, AMPECO, Driivz, Epic Charging, and Monta.",
+  "telematics_integrations": [
+    "Geotab",
+    "Samsara",
+    "Direct OCPP Diagnostic Cloud Sync"
+  ],
+  "pricing_model": "Commercial hardware procurement (CapEx) paired with optional multi-year extended warranty packages, 24/7 technical monitoring, and service level agreements (SLAs).",
+  "pros": [
+    "Sealed IP65 enclosure prevents dust and dirt ingress, eliminating mechanical air filters",
+    "Exceptionally slim footprint ideal for tight urban fleet yards and commercial depot docks",
+    "Quiet liquid-cooled operation compared to noisy high-volume air-cooled DC fast chargers",
+    "Native support for both CCS and emerging North American Charging Standard (NACS)",
+    "Proven deployment record across commercial networks worldwide"
+  ],
+  "considerations": [
+    "Requires professional liquid coolant maintenance inspections per manufacturer schedule",
+    "Power output configurations must be planned in advance for site electrical utility service limits"
+  ],
+  "faqs": [
+    {
+      "question": "What is the primary benefit of Tritium's liquid-cooled DC fast chargers?",
+      "answer": "Tritium's liquid-cooled chargers use a fully sealed IP65 enclosure that prevents dust, dirt, salt spray, and moisture from contacting internal power electronics. This design eliminates mechanical air filters, reduces operational maintenance, and ensures reliable operation in demanding depot conditions."
+    },
+    {
+      "question": "What is the Tritium PKM150 system?",
+      "answer": "The PKM150 is Tritium's modular fleet charging system that connects multiple 50kW–150kW chargers to a shared DC bus. This reduces civil construction costs and copper cabling across the depot while optimizing power delivery between vehicles."
+    },
+    {
+      "question": "Can Tritium chargers be monitored by third-party fleet software?",
+      "answer": "Yes. Tritium chargers support open OCPP 1.6J and 2.0.1 protocols, enabling fleet managers to connect them to independent cloud software platforms like Ampcontrol, AMPECO, or Driivz for energy management and billing."
+    },
+    {
+      "question": "Does Tritium support Plug & Charge for commercial vehicles?",
+      "answer": "Yes. Tritium hardware supports ISO 15118 Plug & Charge, enabling commercial electric vehicles to automatically authorize and initiate charging sessions upon physical connection without manual RFID cards or mobile apps."
+    }
+  ]
+}
+

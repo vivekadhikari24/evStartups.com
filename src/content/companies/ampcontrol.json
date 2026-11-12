@@ -1,0 +1,87 @@
+{
+  "name": "Ampcontrol",
+  "website_url": "https://www.ampcontrol.io",
+  "founded_year": 2019,
+  "headquarters": "New York, USA",
+  "category": "ev-fleet-charging-software",
+  "tagline": "AI-Powered EV Depot Charging & Dynamic Load Management Software",
+  "overview": "Ampcontrol is an industry-leading cloud-based energy management and charge point optimization platform designed specifically for commercial electric vehicle fleets. Founded in 2019, Ampcontrol's software connects directly to OCPP-compliant charging stations, building meters, and vehicle telematics to orchestrate multi-vehicle charging sessions in real time. The platform uses advanced machine learning algorithms to balance electricity demand, avoid utility peak demand charges, and guarantee that every vehicle is fully charged before its scheduled dispatch time with 99.5%+ charging uptime.",
+  "key_features": [
+    {
+      "title": "AI Dynamic Load Balancing",
+      "description": "Continuously calculates optimal power distribution across all active chargers in real time, preventing site electrical capacity overloads without requiring expensive utility transformer upgrades."
+    },
+    {
+      "title": "Peak Demand Shaving & TOU Optimization",
+      "description": "Automatically shifts charging sessions to off-peak utility hours and throttles aggregate depot power draw to eliminate costly monthly peak demand charges."
+    },
+    {
+      "title": "Telematics & Route Dispatch Sync",
+      "description": "Integrates via API with fleet telematics (such as Geotab and Samsara) to read live battery State of Charge (SoC), target departure times, and required kilowatt-hours per vehicle."
+    },
+    {
+      "title": "Local Edge Controller Reliability",
+      "description": "Deploys on-site edge controllers that execute load management locally, ensuring vehicles charge on schedule even during depot internet or cloud connectivity outages."
+    },
+    {
+      "title": "Automated Fault Recovery & Diagnostics",
+      "description": "Real-time monitoring that detects failed charging sessions, triggers automatic remote OCPP resets, and alerts depot managers before morning vehicle departures."
+    }
+  ],
+  "protocols": [
+    "OCPP 1.6J",
+    "OCPP 2.0.1",
+    "ISO 15118 (Plug & Charge)",
+    "OpenADR 2.0b",
+    "REST API & Webhooks"
+  ],
+  "ideal_for": [
+    "Last-Mile Delivery Fleets (Vans & Step Vans)",
+    "Electric School Bus Depots",
+    "Municipal Transit & Bus Fleets",
+    "Class 6-8 Heavy-Duty Truck Depots",
+    "Commercial Corporate & Utility Fleets"
+  ],
+  "hardware_compatibility": "100% hardware-agnostic. Compatible with any OCPP 1.6J or 2.0.1 certified Level 2 AC and DC Fast Chargers (including ABB, Kempower, Tritium, BTC Power, ChargePoint, Delta, and Wallbox).",
+  "telematics_integrations": [
+    "Geotab",
+    "Samsara",
+    "Fleetio",
+    "Webfleet",
+    "Custom Telematics via API"
+  ],
+  "pricing_model": "Annual SaaS subscription based on active charging ports and fleet size, with custom enterprise depot support tiers.",
+  "pros": [
+    "Sophisticated mathematical optimization algorithms tailored specifically for high-density depot constraints",
+    "On-site edge fallback eliminates risk of uncharged vehicles during internet downtime",
+    "Pre-built, bi-directional telematics integrations with Geotab and Samsara",
+    "Hardware-independent with no vendor lock-in",
+    "High reported energy cost savings (up to 40-60% reduction in electricity bills)"
+  ],
+  "considerations": [
+    "Engineered specifically for depot fleets; not designed for public consumer retail charging",
+    "Requires OCPP-compliant networked EVSE hardware"
+  ],
+  "faqs": [
+    {
+      "question": "What is Ampcontrol and what problem does it solve for EV fleets?",
+      "answer": "Ampcontrol is a smart charging management software that helps commercial electric fleets charge multiple vehicles simultaneously without overloading the electrical grid or triggering high utility peak demand charges. It uses real-time algorithms to schedule and throttle charging based on vehicle departure times and site power limits."
+    },
+    {
+      "question": "How does Ampcontrol reduce electricity costs for depot charging?",
+      "answer": "Ampcontrol monitors utility Time-of-Use (TOU) rate schedules and peak demand thresholds. By automatically shifting charging to low-rate hours and dynamically spreading the load across active chargers, it flattens the depot power curve, saving fleets up to 40% to 60% on monthly electricity bills."
+    },
+    {
+      "question": "What happens if the internet goes down at the fleet depot?",
+      "answer": "Ampcontrol supports local edge controller deployments. If internet connection to the cloud is interrupted, the on-site edge controller continues running the dynamic load balancing algorithm locally, ensuring vehicles continue charging safely without tripping site breakers."
+    },
+    {
+      "question": "How does Ampcontrol integrate with Geotab and Samsara?",
+      "answer": "Ampcontrol connects directly to Geotab and Samsara via API. It automatically pulls vehicle battery State of Charge (SoC), energy consumption metrics, and scheduled departure times, eliminating manual data entry by fleet managers."
+    },
+    {
+      "question": "Does Ampcontrol require specific charger brands?",
+      "answer": "No. Ampcontrol is completely hardware-agnostic and connects to any charger that supports the Open Charge Point Protocol (OCPP 1.6J or OCPP 2.0.1)."
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "name": "ABB E-mobility",
+  "website_url": "https://e-mobility.abb.com",
+  "founded_year": 2010,
+  "headquarters": "Delft, Netherlands",
+  "category": "commercial-ev-charging-hardware",
+  "tagline": "Industrial Commercial EV Charging Hardware, DC Fast Chargers & Megawatt Fleet Systems",
+  "overview": "ABB E-mobility is a global industrial manufacturer of electric vehicle charging infrastructure, delivering high-reliability AC wallboxes, high-power DC fast chargers (50kW to 360kW), and Megawatt Charging System (MCS) equipment for commercial depots. Formerly the electric vehicle infrastructure division of ABB Group, ABB E-mobility has deployed over one million EV chargers across more than 85 international markets. The platform specializes in high-power depot electrification for municipal transit authorities, heavy-duty commercial logistics fleets, and electric school bus operators requiring 99%+ operational hardware reliability.",
+  "key_features": [
+    {
+      "title": "Terra 360 & High-Power Modular DC Dispensers",
+      "description": "High-output DC fast charging systems capable of delivering up to 360kW of dynamic power output with multi-vehicle simultaneous power splitting across multiple charging cables."
+    },
+    {
+      "title": "Depot Heavy Vehicle & Pantograph Charging Systems",
+      "description": "Engineered automated connection devices (ACD) including roof-mounted pantographs (OppCharge) and inverted pantographs for automated electric bus depot turnaround."
+    },
+    {
+      "title": "Megawatt Charging System (MCS) Ready",
+      "description": "Next-generation heavy-freight high-voltage architecture supporting charging currents up to 3,000A for Class 8 commercial long-haul electric tractor trailers."
+    },
+    {
+      "title": "ABB Charger Care & Remote Diagnostic Connectivity",
+      "description": "Continuous cloud-connected hardware diagnostics, 24/7 technical monitoring, remote firmware updates, and preventive maintenance dispatch integrations."
+    },
+    {
+      "title": "ISO 15118 Plug & Charge and Hardware Interoperability",
+      "description": "Certified adherence to open communication protocols enabling automated vehicle authentication and interoperability with third-party cloud CPMS software."
+    }
+  ],
+  "protocols": [
+    "OCPP 1.6J",
+    "OCPP 2.0.1",
+    "ISO 15118 (Plug & Charge)",
+    "DIN 70121",
+    "OppCharge (Automated Pantograph)"
+  ],
+  "ideal_for": [
+    "Municipal Transit Authorities & Electric City Bus Operators",
+    "Class 7 & Class 8 Heavy Commercial Electric Freight Fleets",
+    "High-Throughput Last-Mile Delivery Hubs",
+    "Highway Corridors & Heavy Commercial Logistics Hubs",
+    "Fleet Operators Seeking Industrial-Grade Global Hardware"
+  ],
+  "hardware_compatibility": "Industrial hardware manufacturer providing open OCPP 1.6J and 2.0.1 APIs compatible with leading cloud CPMS platforms including Ampcontrol, AMPECO, Driivz, Epic Charging, and Monta.",
+  "telematics_integrations": [
+    "Geotab",
+    "Samsara",
+    "Direct Telematics Cloud via OCPP Data Streams"
+  ],
+  "pricing_model": "Direct commercial hardware capital expenditure (CapEx) or turnkey Charging-as-a-Service (CaaS) financing, paired with multi-year Charger Care preventive maintenance service level agreements.",
+  "pros": [
+    "Global industrial manufacturing footprint with proven durability in extreme weather environments",
+    "Comprehensive portfolio from 11kW AC depot wallboxes to 360kW DC chargers and automated pantographs",
+    "Strict adherence to open standards (OCPP 1.6J/2.0.1) eliminating software lock-in",
+    "Established nationwide service technician networks and spare parts availability",
+    "Ready for high-voltage heavy commercial truck electrification (Megawatt Charging Systems)"
+  ],
+  "considerations": [
+    "High initial hardware capital expenditure compared to lower-duty commercial alternatives",
+    "Requires professional high-voltage utility switchgear and engineering for multi-megawatt depot deployments"
+  ],
+  "faqs": [
+    {
+      "question": "What charging hardware does ABB E-mobility manufacture for commercial fleets?",
+      "answer": "ABB E-mobility manufactures industrial-grade EVSE for commercial fleets, ranging from 19.2kW Level 2 AC units to 50kW–360kW DC fast chargers (Terra series) and inverted pantograph charging systems for electric transit buses."
+    },
+    {
+      "question": "Can ABB EV chargers be controlled by third-party fleet software?",
+      "answer": "Yes. ABB E-mobility chargers operate on open OCPP 1.6J and OCPP 2.0.1 communication protocols, allowing fleet managers to connect ABB chargers to third-party CPMS software platforms like Ampcontrol, AMPECO, Driivz, or Monta without software lock-in."
+    },
+    {
+      "question": "What is the ABB Terra 360 charger?",
+      "answer": "The Terra 360 is a high-power modular DC fast charger capable of delivering up to 360kW of power. It can dynamically divide power between up to four vehicles simultaneously, optimizing depot throughput during peak arrival hours."
+    },
+    {
+      "question": "Does ABB support automated electric bus charging?",
+      "answer": "Yes. ABB provides automated connection devices (ACD) based on the OppCharge open standard, enabling electric buses to charge automatically via top-down or bottom-up pantographs during scheduled depot stops or en-route transit layovers."
+    }
+  ]
+}
+

@@ -1,0 +1,83 @@
+{
+  "name": "EV Connect",
+  "website_url": "https://www.evconnect.com",
+  "founded_year": 2010,
+  "headquarters": "El Segundo, California",
+  "category": "white-label-cpms-roaming",
+  "tagline": "Enterprise Cloud EV Charging Management, Hardware Certification & Fleet Depot Solutions",
+  "overview": "EV Connect (a subsidiary of Schneider Electric) is a global cloud platform provider for electric vehicle charging management. Founded in 2010 in El Segundo, California by Jordan Ramer, EV Connect serves commercial fleets, utilities, hospitality networks, and charge point operators (CPOs). The EV Connect platform delivers enterprise-grade charging station management systems (CPMS), hardware-agnostic multi-vendor charger certification, dynamic load management, and turnkey driver applications. Through the EV Connect Partner Program, the company tests and certifies OCPP-compliant Level 2 and DC fast charging hardware to ensure seamless interoperability for fleet operators.",
+  "key_features": [
+    {
+      "title": "Hardware Certification & Interoperability Lab",
+      "description": "Rigorous hardware testing laboratory certifying interoperability across dozens of commercial EVSE manufacturers adhering to OCPP 1.6J and OCPP 2.0.1 protocols."
+    },
+    {
+      "title": "Fleet Depot Load Management & Energy Balancing",
+      "description": "Dynamic power throttling and automated charging schedules designed to stay within site electrical capacity limits and eliminate peak utility demand charges."
+    },
+    {
+      "title": "White-Label Driver Apps & Custom Enterprise Branding",
+      "description": "Customizable mobile applications for iOS and Android, allowing fleet service providers and commercial operators to deliver fully branded driver charging experiences."
+    },
+    {
+      "title": "Multi-Network Roaming & OCPI Interoperability",
+      "description": "Seamless integration with leading charging networks via OCPI 2.2 protocols, enabling commercial drivers to charge across public networks with centralized corporate billing."
+    },
+    {
+      "title": "Automated Fault Diagnostics & Self-Healing",
+      "description": "Real-time charger health monitoring with automated remote reboot sequences, warranty tracking, and ticketing integrations for field maintenance dispatches."
+    }
+  ],
+  "protocols": [
+    "OCPP 1.6J",
+    "OCPP 2.0.1",
+    "OCPI 2.2 (Roaming)",
+    "OpenADR 2.0b (Demand Response)",
+    "REST APIs & Webhooks"
+  ],
+  "ideal_for": [
+    "Commercial Fleets with Multi-Vendor Charger Hardware",
+    "Charge Point Operators (CPOs) Building Branded Networks",
+    "Electric Utilities and Energy Service Companies",
+    "Commercial Real Estate & Workplace Fleet Hubs",
+    "Municipal Transit and School Bus Depots"
+  ],
+  "hardware_compatibility": "Fully hardware-agnostic platform with certified hardware partners including ABB, BTC Power, Delta, EVBox, Freewire, Power Electronics, Schneider Electric, Tellus Power, and Tritium.",
+  "telematics_integrations": [
+    "Geotab",
+    "Samsara",
+    "Fleetio",
+    "Enterprise Telematics Cloud APIs"
+  ],
+  "pricing_model": "Annual cloud SaaS subscription per active charging port, tiered by commercial fleet features, dynamic load management, and enterprise API access.",
+  "pros": [
+    "Backed by Schneider Electric with global enterprise stability and deployment capabilities",
+    "Extensive hardware certification program minimizing vendor lock-in risk",
+    "Proven OpenADR 2.0b utility integration for grid demand response programs and rebates",
+    "Turnkey white-label mobile app development for enterprise charge point operators",
+    "Robust automated remote diagnostic tools that maximize charger uptime"
+  ],
+  "considerations": [
+    "Enterprise configuration required for deep custom API and ERP integrations",
+    "Advanced fleet telematics dispatch features require connection with third-party software"
+  ],
+  "faqs": [
+    {
+      "question": "What is EV Connect and what services does it offer commercial fleets?",
+      "answer": "EV Connect is a cloud charging management platform that connects EV chargers with energy management algorithms, driver mobile apps, and fleet billing tools. It provides depot load balancing, automated session scheduling, and hardware monitoring across mixed charger brands."
+    },
+    {
+      "question": "Is EV Connect tied to a specific brand of EV charging hardware?",
+      "answer": "No. EV Connect is completely hardware-agnostic. Through its certified partner lab, EV Connect rigorously tests and validates Level 2 and DC fast chargers from dozens of EVSE manufacturers using OCPP 1.6J and 2.0.1 standards."
+    },
+    {
+      "question": "Can EV Connect manage depot power to avoid high utility bills?",
+      "answer": "Yes. EV Connect includes dynamic energy management features that monitor overall site electrical load, schedule charging during off-peak utility rate hours, and throttle power delivery to eliminate peak demand surcharges."
+    },
+    {
+      "question": "How does EV Connect support roaming across public charging networks?",
+      "answer": "EV Connect utilizes Open Charge Point Interface (OCPI 2.2) protocols to connect with external charging networks, allowing commercial fleet drivers to access public chargers with unified billing routed directly to the enterprise fleet account."
+    }
+  ]
+}
+

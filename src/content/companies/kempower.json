@@ -1,0 +1,82 @@
+{
+  "name": "Kempower",
+  "website_url": "https://kempower.com",
+  "founded_year": 2017,
+  "headquarters": "Lahti, Finland",
+  "category": "commercial-ev-charging-hardware",
+  "tagline": "Modular DC Fast Charging Hardware & Dynamic Power Distribution for Commercial Depots",
+  "overview": "Kempower is a Nordic manufacturer of modular direct-current (DC) fast charging equipment engineered specifically for commercial fleet depots, heavy electric trucks, and public charging hubs. Founded in 2017 in Lahti, Finland, Kempower has rapidly expanded across Europe and North America with localized manufacturing in North Carolina. The company's signature architecture separates centralized 50kW to 600kW power cabinets from compact, user-friendly charging satellite dispensers, using dynamic internal power routing to shift kilowatt capacity in granular 25kW increments to vehicles based on instantaneous demand.",
+  "key_features": [
+    {
+      "title": "Centralized Power Unit & Modular Satellites",
+      "description": "Centralizes high-voltage AC/DC conversion inside weatherproof power cabinets (up to 600kW) connected to compact, space-efficient satellite charging pedestals in depot parking stalls."
+    },
+    {
+      "title": "Granular 25kW Dynamic Power Routing",
+      "description": "Dynamically routes electrical power between active charging ports in 25kW module increments, ensuring vehicles receive optimal power without starving neighboring stalls."
+    },
+    {
+      "title": "Kempower T-Series Movable DC Fast Chargers",
+      "description": "Mobile, wheeled DC fast chargers (40kW to 50kW) engineered for depot workshops, temporary staging areas, and fleet maintenance facilities without fixed civil works."
+    },
+    {
+      "title": "Kempower ChargEye Cloud Depot Telemetry",
+      "description": "Cloud-based diagnostics and configuration tool offering high-frequency power curve visualization, remote firmware updates, and automated load control."
+    },
+    {
+      "title": "Open Protocol Architecture & OCPP Compliance",
+      "description": "Full compliance with OCPP 1.6J and 2.0.1 standards, enabling integration with enterprise fleet energy management platforms and depot scheduling systems."
+    }
+  ],
+  "protocols": [
+    "OCPP 1.6J",
+    "OCPP 2.0.1",
+    "ISO 15118 (Plug & Charge)",
+    "DIN 70121",
+    "Kempower ChargEye Cloud API"
+  ],
+  "ideal_for": [
+    "Space-Constrained Urban Commercial Fleet Depots",
+    "Class 6 to Class 8 Heavy Commercial Electric Trucks",
+    "Electric Bus Transit Operators with High Staging Density",
+    "Depot Maintenance & Repair Facilities Needing Movable Fast Chargers",
+    "Commercial Operators Seeking Scalable Modular Power Architecture"
+  ],
+  "hardware_compatibility": "Engineered for open interoperability with leading commercial CPMS platforms including Ampcontrol, AMPECO, Driivz, Epic Charging, and Monta.",
+  "telematics_integrations": [
+    "Geotab",
+    "Samsara",
+    "Direct Telematics Data Sync via Cloud CPMS"
+  ],
+  "pricing_model": "Modular hardware procurement with customized power module configurations (CapEx), paired with software licensing for ChargEye cloud diagnostics and multi-tier maintenance SLA packages.",
+  "pros": [
+    "Granular dynamic power routing eliminates wasted electrical capacity during simultaneous charging",
+    "Small footprint satellite pedestals preserve critical space in crowded commercial fleet staging yards",
+    "Spring-loaded cable support system prevents heavy charging cables from dragging on dirty depot floors",
+    "Movable T-series DC chargers offer exceptional flexibility during fleet pilot phases",
+    "High field reliability with modular hot-swappable 25kW power modules"
+  ],
+  "considerations": [
+    "Centralized power unit architecture requires trenching conduit from power cabinet to satellite pedestals",
+    "Requires high-voltage three-phase grid supply engineered for multi-stall commercial fast charging"
+  ],
+  "faqs": [
+    {
+      "question": "What is unique about Kempower's DC fast charging architecture?",
+      "answer": "Kempower separates the heavy power conversion electronics (Power Unit) from the charging cables (Satellites). Power is dynamically allocated in 25kW module steps across all active vehicles, ensuring maximum charging efficiency and saving physical space in depot parking bays."
+    },
+    {
+      "question": "What is the Kempower T-Series movable charger?",
+      "answer": "The Kempower T-Series is a portable, wheeled 40kW–50kW DC fast charger that plugs into standard high-voltage industrial sockets. It allows fleet managers to fast-charge electric trucks and vans anywhere in the depot without installing permanent concrete pedestals."
+    },
+    {
+      "question": "Can Kempower chargers work with third-party fleet software?",
+      "answer": "Yes. Kempower hardware strictly complies with OCPP 1.6J and OCPP 2.0.1 open protocols, allowing commercial operators to connect Kempower hardware directly to third-party fleet energy management platforms like Ampcontrol, AMPECO, or Monta."
+    },
+    {
+      "question": "How does Kempower handle heavy charging cables in commercial depots?",
+      "answer": "Kempower satellites feature a patented spring-loaded overhead cable management system that suspends the cable above the ground, preventing damage from vehicles driving over cables and keeping connectors clean in industrial environments."
+    }
+  ]
+}
+

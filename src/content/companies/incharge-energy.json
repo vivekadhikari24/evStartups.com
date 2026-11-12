@@ -1,0 +1,82 @@
+{
+  "name": "InCharge Energy",
+  "website_url": "https://inchargeus.com",
+  "founded_year": 2019,
+  "headquarters": "Richmond, Virginia",
+  "category": "ev-fleet-charging-software",
+  "tagline": "Turnkey Commercial Fleet Electrification Infrastructure, Depot Hardware & InControl CMS",
+  "overview": "InCharge Energy (an ABB E-mobility company) is a North American fleet electrification solutions provider delivering end-to-end commercial charging infrastructure. Founded in 2019 in Richmond, Virginia by Cameron Funk and Terry O'Day, InCharge Energy provides turnkey services covering utility interconnection engineering, AC/DC commercial hardware procurement, depot construction, and proprietary fleet charging software (InControl). InCharge works directly with commercial automotive OEMs including Navistar, GM Envolve, and Stellantis to streamline medium- and heavy-duty depot electrification.",
+  "key_features": [
+    {
+      "title": "InControl Fleet Charging Management System (CMS)",
+      "description": "Cloud-based fleet management platform providing automated charging scheduling, dynamic load balancing, and battery health tracking tailored for commercial depots."
+    },
+    {
+      "title": "Turnkey Utility Interconnection & Depot Civil Works",
+      "description": "End-to-end electrical engineering managing utility interconnection approvals, transformer upgrades, grant and incentive acquisition, and on-site construction."
+    },
+    {
+      "title": "InCharge Dual-Vehicle ICE-60 & DC Fast Hardware",
+      "description": "Proprietary commercial EVSE line designed for commercial logistics, including dual-connector DC fast chargers with dynamic power sharing across adjacent bays."
+    },
+    {
+      "title": "Automated Uptime Monitoring & Fleet Service Agreements",
+      "description": "24/7 cloud station diagnostics with dedicated field technician dispatching to maintain 99%+ hardware and software depot availability."
+    },
+    {
+      "title": "OEM Fleet Telematics & Integration APIs",
+      "description": "Direct vehicle data integration with leading commercial telematics platforms to capture battery SoC and automate morning departure readiness."
+    }
+  ],
+  "protocols": [
+    "OCPP 1.6J",
+    "ISO 15118 (Plug & Charge)",
+    "REST APIs & Webhooks",
+    "OpenADR 2.0b"
+  ],
+  "ideal_for": [
+    "Commercial Logistics & Delivery Fleets Needing Turnkey Infrastructure",
+    "School Bus Contractors & Municipal Transit Fleets",
+    "Commercial Operators Seeking Single-Contract Hardware, Software, and Service",
+    "Class 4 through Class 8 Commercial Electric Trucks",
+    "Fleets Requiring Utility Interconnection & Grant Management"
+  ],
+  "hardware_compatibility": "Engineered for native InCharge ICE commercial EVSE and open OCPP 1.6J hardware from ABB E-mobility, ChargePoint, Eaton, and Siemens.",
+  "telematics_integrations": [
+    "Geotab",
+    "Samsara",
+    "Navistar OnCommand Connection",
+    "Direct OEM Fleet Telematics"
+  ],
+  "pricing_model": "Turnkey project-based CapEx or comprehensive Charging-as-a-Service (CaaS) monthly financing encompassing hardware, installation, software licensing, and preventive maintenance.",
+  "pros": [
+    "Single-source provider managing engineering, utility approvals, hardware, and ongoing software",
+    "Deep partnerships with commercial truck OEMs including Navistar and GM Envolve",
+    "Dedicated fleet-specific software (InControl) focused strictly on commercial duty cycles",
+    "Strong track record in electric school bus and last-mile delivery fleet deployments",
+    "Financial backing and technology integration with ABB E-mobility"
+  ],
+  "considerations": [
+    "Most cost-effective when bundled as a turnkey service rather than standalone software procurement",
+    "North American focus with deployment operations primarily centered in the US and Canada"
+  ],
+  "faqs": [
+    {
+      "question": "What services does InCharge Energy provide for commercial electric fleets?",
+      "answer": "InCharge Energy provides complete turnkey electrification services, including site design, utility interconnection coordination, EV charging hardware installation, proprietary InControl fleet management software, and 24/7 preventive maintenance."
+    },
+    {
+      "question": "What is the InControl software platform?",
+      "answer": "InControl is InCharge Energy's proprietary cloud-based CMS software. It provides real-time depot monitoring, dynamic load management, charging scheduling during off-peak electricity hours, and automated low-battery alerts."
+    },
+    {
+      "question": "Does InCharge Energy help fleets secure utility grants and subsidies?",
+      "answer": "Yes. InCharge Energy has a dedicated incentives team that identifies, applies for, and secures federal, state, and utility grant funding (such as EPA Clean School Bus grants and utility EV infrastructure rebates) to offset upfront depot capital expenditure."
+    },
+    {
+      "question": "Can InCharge hardware charge two vehicles simultaneously?",
+      "answer": "Yes. InCharge commercial DC fast chargers (like the ICE-60 and ICE-120) feature dual-port connections with dynamic power splitting, allowing two commercial vehicles to share a single charging pedestal simultaneously."
+    }
+  ]
+}
+

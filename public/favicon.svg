@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" fill="none">
+  <rect width="128" height="128" rx="28" fill="#080d1a"/>
+  <rect x="2" y="2" width="124" height="124" rx="26" stroke="#10b981" stroke-opacity="0.3" stroke-width="4"/>
+  <path d="M72 16L34 70H66L56 112L94 58H62L72 16Z" fill="url(#bolt_grad)" stroke="#059669" stroke-width="2" stroke-linejoin="round"/>
+  <defs>
+    <linearGradient id="bolt_grad" x1="34" y1="16" x2="94" y2="112" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#34d399"/>
+      <stop offset="1" stop-color="#059669"/>
+    </linearGradient>
+  </defs>
+</svg>

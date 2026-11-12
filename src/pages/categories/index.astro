@@ -1,0 +1,230 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const categories = await getCollection('categories');
+const companies = await getCollection('companies');
+
+// Active category data with mapped companies count
+const categoryMeta: Record<string, { description: string; capabilities: string[] }> = {
+  'ev-fleet-charging-software': {
+    description: 'Cloud orchestration platforms balancing depot electrical load, mitigating utility peak demand charges, and scheduling OCPP charging sessions.',
+    capabilities: [
+      'Smart Load Balancing',
+      'OCPP 1.6J / 2.0.1 Protocol Support',
+      'Dynamic Peak Demand Shaving',
+      'Telematics State of Charge (SoC) Sync',
+    ],
+  },
+  'fleet-telematics-diagnostics': {
+    description: 'Hardware and software telematics platforms capturing high-frequency battery state of charge, diagnostic trouble codes, and route energy draw.',
+    capabilities: [
+      'High-Frequency OBD-II / CAN Telemetry',
+      'Real-Time Battery SoC Monitoring',
+      'EV Suitability Assessment (EVSA)',
+      'Cold-Weather Range Prediction',
+    ],
+  },
+  'white-label-cpms-roaming': {
+    description: 'Turnkey software suites for charge point operators, featuring custom branded driver applications, roaming, and automated billing.',
+    capabilities: [
+      'OCPI 2.2.1 Roaming Interoperability',
+      'Multi-Currency Automated Billing',
+      'Branded iOS & Android Mobile Apps',
+      'RFID & Driver Access Management',
+    ],
+  },
+  'commercial-ev-charging-hardware': {
+    description: 'Level 2 AC and high-power DC fast charging hardware manufacturers engineered for commercial fleet depots and transit hubs.',
+    capabilities: [
+      'DC Fast Charging (50kW–400kW)',
+      'Megawatt Charging System (MCS)',
+      'ISO 15118 Plug & Charge',
+      'Liquid-Cooled Cable Dispensers',
+    ],
+  },
+};
+
+const liveCategories = categories.map((cat) => {
+  const mappedCompanies = companies.filter((c) => c.data.category.id === cat.id);
+  const meta = categoryMeta[cat.id] || {
+    description: cat.data.description.slice(0, 160) + '...',
+    capabilities: [
+      'Verified Technical Specifications',
+      'Hardware-Agnostic Architecture',
+      'Cloud REST API Integration',
+      'Depot Operations Optimization',
+    ],
+  };
+
+  return {
+    id: cat.id,
+    title: cat.data.title,
+    description: meta.description,
+    capabilities: meta.capabilities,
+    isLive: true,
+    count: mappedCompanies.length,
+    href: `/categories/${cat.id}`,
+  };
+});
+
+// Comprehensive industry taxonomy categories
+const expandingCategories = [
+  {
+    id: 'battery-storage-bess-recycling',
+    title: 'Battery Technology, Storage (BESS) & Recycling',
+    description: 'Behind-the-meter stationary battery storage systems (BESS) paired with closed-loop second-life battery lifecycle management.',
+    capabilities: [
+      'Behind-the-Meter Depot BESS',
+      'Stationary Peak Shaving Storage',
+      'Battery State of Health (SoH) Tracking',
+      'Closed-Loop Recycling Diagnostics',
+    ],
+    isLive: false,
+    count: 0,
+    href: `/categories/ev-fleet-charging-software`,
+  },
+  {
+    id: 'depot-route-dispatch-optimization',
+    title: 'EV Depot Route & Dispatch Optimization',
+    description: 'Intelligent scheduling software matching vehicle battery capacity, route topography, duty cycles, and depot dwell time.',
+    capabilities: [
+      'Route Energy Demand Modeling',
+      'Topography & Payload Range Factors',
+      'Automated Morning Dispatch Readiness',
+      'Shift & Charging Window Sync',
+    ],
+    isLive: false,
+    count: 0,
+    href: `/categories/ev-fleet-charging-software`,
+  },
+];
+
+const allCategories = [...liveCategories, ...expandingCategories];
+
+// Breadcrumbs Schema
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Home',
+      item: 'https://www.evstartups.com',
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Categories',
+      item: 'https://www.evstartups.com/categories',
+    },
+  ],
+};
+
+// CollectionPage Schema containing ItemList mapping active categories to canonical paths
+const collectionPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Commercial EV Software & Hardware Categories',
+  description: 'Explore commercial electric vehicle software tools categorized by depot operations, energy management, and telematics.',
+  url: 'https://www.evstartups.com/categories',
+  mainEntity: {
+    '@type': 'ItemList',
+    name: 'Commercial EV Directory Categories',
+    numberOfItems: categories.length,
+    itemListElement: categories.map((cat, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: cat.data.title,
+      url: `https://www.evstartups.com/categories/${cat.id}`,
+    })),
+  },
+};
+
+const jsonLd = [breadcrumbSchema, collectionPageSchema];
+---
+
+<Layout
+  title="Commercial EV Software & Hardware Categories | evStartups.com"
+  description="Explore commercial electric vehicle software tools categorized by depot operations, energy management, and telematics."
+  jsonLd={jsonLd}
+>
+  <!-- Page Wrapper with bg-slate-50 min-h-screen -->
+  <div class="bg-slate-50 min-h-screen pb-20">
+    
+    <!-- Header Introduction -->
+    <header class="border-b border-slate-200/80 bg-white py-14 sm:py-16">
+      <div class="mx-auto max-w-6xl px-4 sm:px-6">
+        <nav class="flex items-center gap-2 text-xs font-medium text-slate-500 mb-4">
+          <a href="/" class="hover:text-slate-900 transition">Home</a>
+          <span>/</span>
+          <span class="text-slate-900 font-semibold">Categories</span>
+        </nav>
+
+        <div class="max-w-3xl">
+          <h1 class="text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl lg:text-5xl font-['Plus_Jakarta_Sans']">
+            Commercial EV Software & Hardware Categories
+          </h1>
+          <p class="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed">
+            Explore commercial electric vehicle software tools categorized by depot operations, energy management, and telematics.
+          </p>
+        </div>
+      </div>
+    </header>
+
+    <!-- Unified Categories Grid Directly Beneath Header -->
+    <main class="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {allCategories.map((item) => (
+          <a
+            href={item.href}
+            class="group flex flex-col justify-between rounded-xl border border-slate-200 bg-white p-6 shadow-xs hover:border-emerald-500 hover:shadow-md transition-all duration-200"
+          >
+            <div>
+              <!-- Top Header: Title & Status Pill -->
+              <div class="flex items-start justify-between gap-3">
+                <h2 class="text-xl font-bold text-slate-900 group-hover:text-emerald-600 transition font-['Plus_Jakarta_Sans']">
+                  {item.title}
+                </h2>
+                {item.isLive ? (
+                  <span class="shrink-0 inline-flex items-center rounded-full bg-emerald-50 px-2.5 py-0.5 text-xs font-medium text-emerald-700 border border-emerald-200">
+                    Active Silo &bull; Verified Directory Hub
+                  </span>
+                ) : (
+                  <span class="shrink-0 inline-flex items-center rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-medium text-slate-500 border border-slate-200">
+                    Expanding Soon
+                  </span>
+                )}
+              </div>
+
+              <!-- 2-Line Summary Description -->
+              <p class="mt-2.5 text-sm text-slate-600 leading-relaxed line-clamp-2">
+                {item.description}
+              </p>
+
+              <!-- Technical Capabilities List with Checkmarks -->
+              <div class="mt-4 pt-3.5 border-t border-slate-100 flex flex-wrap gap-x-4 gap-y-1.5 text-xs text-slate-500 font-mono">
+                {item.capabilities.map((cap) => (
+                  <span class="inline-flex items-center gap-1">
+                    <span class="text-emerald-600 font-bold">✓</span> {cap}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <!-- Footer Meta -->
+            <div class="mt-6 flex items-center justify-between border-t border-slate-100 pt-3.5 text-xs">
+              <span class="font-bold text-emerald-600 group-hover:text-emerald-700 transition">
+                {item.isLive ? 'Explore Category Directory →' : 'View Category Silo →'}
+              </span>
+              <span class="text-slate-400">
+                {item.isLive ? 'Verified Taxonomy' : 'Ecosystem Scope'}
+              </span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </main>
+  </div>
+</Layout>

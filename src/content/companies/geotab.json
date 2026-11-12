@@ -1,0 +1,86 @@
+{
+  "name": "Geotab",
+  "website_url": "https://www.geotab.com",
+  "founded_year": 2000,
+  "headquarters": "Oakville, Ontario, Canada",
+  "category": "fleet-telematics-diagnostics",
+  "tagline": "Global Fleet Telematics, EV Suitability Assessment & Battery Analytics Leader",
+  "overview": "Geotab is one of the world's largest commercial telematics and connected vehicle intelligence platforms, monitoring over 4 million connected vehicles and processing over 100 billion data points daily. Founded in 2000 by Neil Cawse in Oakville, Ontario, Geotab is a pioneer in fleet electrification analytics. Through its flagship GO9 telematics hardware and MyGeotab software platform, the company delivers the industry-standard Electric Vehicle Suitability Assessment (EVSA), real-time State of Charge (SoC) telematics, battery degradation monitoring, and seamless API integrations with depot charging management systems.",
+  "key_features": [
+    {
+      "title": "Electric Vehicle Suitability Assessment (EVSA)",
+      "description": "Analyzes real-world driving behavior, daily range requirements, cold-weather conditions, and dwell times from existing ICE fleets to recommend exact EV replacements, estimated fuel cost savings, and emissions reductions."
+    },
+    {
+      "title": "Real-Time Battery State of Charge (SoC) & Range",
+      "description": "Ingests live vehicle battery percentage, remaining electric driving range, and charging status to alert fleet managers if an active vehicle is uncharged or charging is interrupted."
+    },
+    {
+      "title": "EV Battery Degradation & Health Tracking",
+      "description": "Monitors long-term battery State of Health (SoH) across 300+ EV makes and models, helping fleets identify high-wear charging behaviors (such as frequent DC fast charging) to preserve asset longevity."
+    },
+    {
+      "title": "Depot & Take-Home Charging Monitoring",
+      "description": "Distinguishes between depot charging sessions and home charging for commercial take-home vehicles, measuring exact kilowatt-hours consumed to simplify driver utility reimbursement."
+    },
+    {
+      "title": "Open Telematics API & Marketplace Ecosystem",
+      "description": "Provides bidirectional REST APIs and SDKs that feed live vehicle telematics directly into charging management software like Ampcontrol and Driivz for dynamic depot load orchestration."
+    }
+  ],
+  "protocols": [
+    "OBD-II / J1939 / J1708 (Vehicle CAN-bus)",
+    "FIPS 140-2 Validated Encryption",
+    "REST APIs & Software Development Kit (SDK)",
+    "OCPP & OCPI Ecosystem Integration"
+  ],
+  "ideal_for": [
+    "Enterprise Commercial Fleets (Mixed ICE & EV)",
+    "Municipal & Government Transportation Agencies",
+    "Corporate & Service Van Fleets",
+    "Heavy-Duty Trucking & Transit Bus Operators",
+    "Multinational Logistics Operations"
+  ],
+  "hardware_compatibility": "Geotab GO9 and GO9+ telematics devices, compatible with virtually all commercial ICE vehicles and over 300 electric vehicle makes and models worldwide.",
+  "telematics_integrations": [
+    "Native MyGeotab Telematics Platform",
+    "Geotab Marketplace (700+ Verified Partner Solutions)",
+    "Ampcontrol (Depot Smart Charging)",
+    "Driivz (Energy & Charger Management)",
+    "Fleetio (Fleet Maintenance)"
+  ],
+  "pricing_model": "Hardware purchase or lease for GO9 telematics devices, combined with tiered monthly SaaS subscriptions (Base, Pro, ProPlus) through authorized Geotab resellers.",
+  "pros": [
+    "World's largest commercial telematics dataset powering highly accurate EV transition modeling (EVSA)",
+    "Empirical battery degradation insights derived from real-world telemetry across tens of thousands of EVs",
+    "Broadest electric vehicle make and model CAN-bus compatibility in the commercial industry (300+ EV models)",
+    "Robust cybersecurity with FIPS 140-2 validated cryptographic modules",
+    "Open API platform allows seamless integration into any OCPP-based depot charging management system"
+  ],
+  "considerations": [
+    "Focused primarily on vehicle telematics; relies on partner integrations (such as Ampcontrol) for physical depot charger load balancing",
+    "Sold predominantly through certified reseller networks rather than direct consumer self-checkout"
+  ],
+  "faqs": [
+    {
+      "question": "What is Geotab and how does it help fleets transition to electric vehicles?",
+      "answer": "Geotab is an enterprise fleet telematics platform that uses in-vehicle hardware (GO9) and analytics software (MyGeotab) to monitor vehicle performance. For fleets transitioning to EVs, Geotab's Electric Vehicle Suitability Assessment (EVSA) analyzes existing vehicle routes and duty cycles to show exactly which vehicles can be replaced with EVs, how much money the fleet will save, and how much CO2 will be reduced."
+    },
+    {
+      "question": "What is the Geotab Electric Vehicle Suitability Assessment (EVSA)?",
+      "answer": "The EVSA is a data-driven tool that evaluates real-world driving data from your existing fleet, factoring in local temperatures, elevation changes, payload, and daily route distances. It identifies the optimal electric vehicle models available in your market to replace your combustion vehicles without risking range anxiety."
+    },
+    {
+      "question": "How does Geotab track electric vehicle battery degradation?",
+      "answer": "Geotab monitors battery State of Health (SoH) over time directly through vehicle CAN-bus data. By analyzing real-world performance across thousands of connected commercial EVs, Geotab helps fleet managers understand how operating temperatures and DC fast-charging frequencies impact long-term battery lifespan."
+    },
+    {
+      "question": "Can Geotab connect with depot charging software like Ampcontrol?",
+      "answer": "Yes. Geotab provides an open API that allows depot charging software (such as Ampcontrol, Driivz, and Epic Charging) to ingest real-time battery percentage (SoC) and vehicle arrival/departure schedules, enabling smart load balancing and automated charging schedules."
+    },
+    {
+      "question": "Which electric vehicles are compatible with Geotab telematics?",
+      "answer": "Geotab supports over 300 electric vehicle makes and models globally, including light-duty delivery vans (Ford E-Transit, Mercedes eSprinter, BrightDrop), passenger fleet vehicles, electric school buses, and heavy-duty electric trucks."
+    }
+  ]
+}

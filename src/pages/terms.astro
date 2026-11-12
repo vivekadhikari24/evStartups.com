@@ -1,0 +1,139 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Home',
+      item: 'https://www.evstartups.com',
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Terms of Service',
+      item: 'https://www.evstartups.com/terms',
+    },
+  ],
+};
+---
+
+<Layout
+  title="Terms of Service | evStartups.com"
+  description="Terms of service and user agreements for evStartups.com commercial EV fleet software directory."
+  jsonLd={breadcrumbSchema}
+  noindex={true}
+>
+  <div class="bg-slate-50 min-h-screen pb-20">
+    <!-- Header -->
+    <header class="border-b border-slate-200/80 bg-white py-12 sm:py-16">
+      <div class="mx-auto max-w-3xl px-6">
+        <nav class="flex items-center gap-2 text-xs font-medium text-slate-500 mb-4">
+          <a href="/" class="hover:text-slate-900 transition">Home</a>
+          <span>/</span>
+          <span class="text-slate-900 font-semibold">Terms of Service</span>
+        </nav>
+        <h1 class="text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl font-['Plus_Jakarta_Sans']">
+          Terms of Service
+        </h1>
+        <p class="mt-2 text-xs text-slate-500">
+          Last Updated: October 5, 2026 &bull; Please read carefully before using this directory
+        </p>
+      </div>
+    </header>
+
+    <!-- Main Content Container with Centered Typography -->
+    <main class="mx-auto max-w-3xl px-6 py-12">
+      <div class="rounded-2xl border border-slate-200 bg-white p-8 sm:p-12 shadow-xs space-y-8 text-slate-700 leading-relaxed text-sm sm:text-base">
+        
+        <section class="space-y-3">
+          <h2 class="text-xl font-bold text-slate-900 font-['Plus_Jakarta_Sans']">
+            1. Acceptance of Terms
+          </h2>
+          <p>
+            By accessing or browsing <strong class="text-slate-900">evStartups.com</strong> (the "Website" or "Service"), you agree to be bound by these Terms of Service ("Terms"). If you do not agree to these Terms, please do not access or use the Website.
+          </p>
+        </section>
+
+        <section class="space-y-3 border-t border-slate-100 pt-6">
+          <h2 class="text-xl font-bold text-slate-900 font-['Plus_Jakarta_Sans']">
+            2. Informational & Research Purpose Only
+          </h2>
+          <p>
+            evStartups.com is an independent B2B research directory and market intelligence platform designed to assist fleet operators, utility managers, and depot engineers in discovering and comparing commercial electric vehicle software tools, charge point management systems (CPMS), and telematics providers.
+          </p>
+          <div class="rounded-xl border border-amber-200 bg-amber-50/60 p-4 text-xs sm:text-sm text-amber-950">
+            <p class="font-semibold mb-1">Important Notice:</p>
+            <p>
+              All content, vendor profiles, technical protocol tags, and comparison guides published on this Website are provided strictly for general informational, educational, and preliminary research purposes. None of the content constitutes professional engineering, legal, or procurement advice.
+            </p>
+          </div>
+        </section>
+
+        <section class="space-y-3 border-t border-slate-100 pt-6">
+          <h2 class="text-xl font-bold text-slate-900 font-['Plus_Jakarta_Sans']">
+            3. Rapidly Evolving Industry & No Warranty of Accuracy
+          </h2>
+          <p>
+            The commercial electric vehicle software and charging infrastructure sector evolves at an extraordinary pace. Software versions, cloud API capabilities, pricing structures, hardware certifications, and protocol compliances (such as OCPP 1.6J, OCPP 2.0.1, ISO 15118, and OpenADR) change frequently.
+          </p>
+          <p>
+            While our editorial team endeavors to keep specifications and platform features verified, <strong class="text-slate-900">we do not warrant or guarantee the completeness, timeliness, reliability, or real-time accuracy</strong> of any pricing models, feature sets, technical specifications, or vendor claims listed on the Website.
+          </p>
+        </section>
+
+        <section class="space-y-3 border-t border-slate-100 pt-6">
+          <h2 class="text-xl font-bold text-slate-900 font-['Plus_Jakarta_Sans']">
+            4. User Obligation to Directly Verify Specifications
+          </h2>
+          <p>
+            Prior to entering into any commercial software agreement, hardware deployment, or contractual commitment with any featured vendor, <strong class="text-slate-900">you must independently verify all technical specifications, service level agreements (SLAs), hardware compatibility lists, and pricing models directly with the respective vendor</strong>. You are solely responsible for conducting your own commercial due diligence.
+          </p>
+        </section>
+
+        <section class="space-y-3 border-t border-slate-100 pt-6">
+          <h2 class="text-xl font-bold text-slate-900 font-['Plus_Jakarta_Sans']">
+            5. Limitation of Liability
+          </h2>
+          <p>
+            To the maximum extent permitted by applicable law, evStartups.com, its founders, editors, and affiliates shall not be liable for any direct, indirect, incidental, consequential, special, or punitive damages arising out of or in connection with your use of the directory.
+          </p>
+          <p class="text-sm text-slate-600">
+            Specifically, we are not liable for:
+          </p>
+          <ul class="list-disc pl-5 space-y-1.5 text-sm text-slate-600">
+            <li>Commercial purchasing decisions, procurement choices, or vendor selection outcomes.</li>
+            <li>Fleet downtime, vehicle unreadiness, missed delivery schedules, or charging failures.</li>
+            <li>Depot electrical utility penalties, peak demand surcharges, or installation cost overruns.</li>
+            <li>Software integration errors, telematics discrepancies, or data synchronization issues.</li>
+          </ul>
+        </section>
+
+        <section class="space-y-3 border-t border-slate-100 pt-6">
+          <h2 class="text-xl font-bold text-slate-900 font-['Plus_Jakarta_Sans']">
+            6. Intellectual Property & Trademarks
+          </h2>
+          <p>
+            All original text, editorial compilations, directory structures, and design elements on evStartups.com are the intellectual property of evStartups.com.
+          </p>
+          <p class="text-sm text-slate-600">
+            All vendor names, brand logos, product trademarks, and service marks displayed in the directory (such as Ampcontrol, AMPECO, Driivz, Geotab, Monta, Samsara, and others) are the property of their respective owners. Their display on our Website is solely for editorial identification and comparative reference under fair use doctrine and does not imply sponsorship, affiliation, or endorsement.
+          </p>
+        </section>
+
+        <section class="space-y-3 border-t border-slate-100 pt-6">
+          <h2 class="text-xl font-bold text-slate-900 font-['Plus_Jakarta_Sans']">
+            7. Governing Law & Contact
+          </h2>
+          <p>
+            These Terms are governed by and construed in accordance with standard commercial laws. If you have any questions or concerns regarding these Terms, please contact our editorial desk at <a href="mailto:editorial@evstartups.com" class="text-emerald-600 hover:underline">editorial@evstartups.com</a>.
+          </p>
+        </section>
+
+      </div>
+    </main>
+  </div>
+</Layout>

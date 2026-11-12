@@ -1,0 +1,132 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Home',
+      item: 'https://www.evstartups.com',
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Affiliate & Earnings Disclaimer',
+      item: 'https://www.evstartups.com/disclaimer',
+    },
+  ],
+};
+---
+
+<Layout
+  title="Affiliate & Earnings Disclaimer | evStartups.com"
+  description="Affiliate, sponsorship, and lead generation compensation disclosure for evStartups.com commercial EV software directory."
+  jsonLd={breadcrumbSchema}
+  noindex={true}
+>
+  <div class="bg-slate-50 min-h-screen pb-20">
+    <!-- Header -->
+    <header class="border-b border-slate-200/80 bg-white py-12 sm:py-16">
+      <div class="mx-auto max-w-3xl px-6">
+        <nav class="flex items-center gap-2 text-xs font-medium text-slate-500 mb-4">
+          <a href="/" class="hover:text-slate-900 transition">Home</a>
+          <span>/</span>
+          <span class="text-slate-900 font-semibold">Earnings Disclaimer</span>
+        </nav>
+        <h1 class="text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl font-['Plus_Jakarta_Sans']">
+          Affiliate & Earnings Disclaimer
+        </h1>
+        <p class="mt-2 text-xs text-slate-500">
+          Last Updated: October 5, 2026 &bull; Transparency in B2B Research
+        </p>
+      </div>
+    </header>
+
+    <!-- Main Content Container with Centered Typography -->
+    <main class="mx-auto max-w-3xl px-6 py-12">
+      <div class="rounded-2xl border border-slate-200 bg-white p-8 sm:p-12 shadow-xs space-y-8 text-slate-700 leading-relaxed text-sm sm:text-base">
+        
+        <section class="space-y-3">
+          <h2 class="text-xl font-bold text-slate-900 font-['Plus_Jakarta_Sans']">
+            1. Independent B2B Research Mission
+          </h2>
+          <p>
+            <strong class="text-slate-900">evStartups.com</strong> was founded to provide transparent, hardware-agnostic research and comparative benchmarks for commercial electric fleet operators, municipal transit authorities, school bus depots, and enterprise logistics networks.
+          </p>
+          <p>
+            Our core mission is to empower fleet decision-makers to identify the right charge point management systems (CPMS), dynamic load balancing engines, and telematics platforms for their unique operational requirements.
+          </p>
+        </section>
+
+        <section class="space-y-3 border-t border-slate-100 pt-6">
+          <h2 class="text-xl font-bold text-slate-900 font-['Plus_Jakarta_Sans']">
+            2. How We Keep Our Directory Free (Compensation Disclosure)
+          </h2>
+          <p>
+            To keep our comprehensive database, technical guides, protocol breakdowns, and comparison matrices 100% free for commercial fleet buyers, we may receive financial compensation from software vendors.
+          </p>
+          <p>This compensation occurs primarily through three avenues:</p>
+          <ul class="list-disc pl-5 space-y-2 text-sm text-slate-600">
+            <li>
+              <strong class="text-slate-800">Qualified Lead Generation:</strong> When a fleet operator submits a pricing request, demo inquiry, or request for information (RFI) through our directory, we may receive a referral fee from the software vendor when we connect them with qualified buyers.
+            </li>
+            <li>
+              <strong class="text-slate-800">Sponsored Profile Enhancements:</strong> Vendors may occasionally sponsor badge placements or featured positioning in specific directory categories. Any sponsored listing will always be clearly designated as such.
+            </li>
+            <li>
+              <strong class="text-slate-800">Affiliate Partnerships:</strong> Certain platform links or partner referrals may generate affiliate compensation when commercial software trials or subscriptions are executed.
+            </li>
+          </ul>
+        </section>
+
+        <section class="space-y-3 border-t border-slate-100 pt-6">
+          <h2 class="text-xl font-bold text-slate-900 font-['Plus_Jakarta_Sans']">
+            3. Our Strict Editorial Integrity Guarantee
+          </h2>
+          <div class="rounded-xl border border-emerald-200 bg-emerald-50/50 p-5 space-y-2 text-xs sm:text-sm text-emerald-950">
+            <h3 class="font-bold text-emerald-900 text-sm">
+              Financial Compensation Does NOT Alter Technical Evaluations
+            </h3>
+            <p>
+              We firmly believe that B2B buyer trust is our most valuable asset. Therefore, financial compensation or commercial arrangements <strong class="underline">never</strong> influence:
+            </p>
+            <ul class="list-disc pl-5 space-y-1 text-emerald-900/90 text-xs sm:text-sm pt-1">
+              <li>Our technical protocol verification (e.g. OCPP 1.6J, OCPP 2.0.1, ISO 15118, OpenADR).</li>
+              <li>Documented hardware compatibility and telematics integrations.</li>
+              <li>Our objective side-by-side software capability matrices.</li>
+              <li>The identified "Considerations" or technical trade-offs listed on vendor profiles.</li>
+            </ul>
+          </div>
+          <p class="text-sm text-slate-600">
+            We do not accept payment to remove legitimate technical limitations, fabricate hardware compatibility, or write favorable reviews for substandard charging platforms.
+          </p>
+        </section>
+
+        <section class="space-y-3 border-t border-slate-100 pt-6">
+          <h2 class="text-xl font-bold text-slate-900 font-['Plus_Jakarta_Sans']">
+            4. Fleet Operator Due Diligence
+          </h2>
+          <p>
+            While we conduct extensive research into API architectures, local edge resilience, and power management capabilities, every commercial fleet has unique electrical constraints, vehicle duty cycles, and utility rate structures.
+          </p>
+          <p>
+            We strongly recommend that fleet operators run pilot deployments, request test API credentials, and review vendor SLA agreements directly prior to enterprise contracting.
+          </p>
+        </section>
+
+        <section class="space-y-3 border-t border-slate-100 pt-6">
+          <h2 class="text-xl font-bold text-slate-900 font-['Plus_Jakarta_Sans']">
+            5. Questions Regarding This Disclaimer
+          </h2>
+          <p>
+            If you have any questions regarding our monetization policies, affiliate relationships, or editorial guidelines, please contact us directly at <a href="mailto:editorial@evstartups.com" class="text-emerald-600 hover:underline">editorial@evstartups.com</a>.
+          </p>
+        </section>
+
+      </div>
+    </main>
+  </div>
+</Layout>

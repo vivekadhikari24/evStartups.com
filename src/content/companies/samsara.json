@@ -1,0 +1,86 @@
+{
+  "name": "Samsara",
+  "website_url": "https://www.samsara.com",
+  "founded_year": 2015,
+  "headquarters": "San Francisco, California, USA",
+  "category": "fleet-telematics-diagnostics",
+  "tagline": "Connected Operations Cloud & Real-Time Commercial EV Fleet Intelligence",
+  "overview": "Samsara (NYSE: IOT) is a leading Connected Operations Cloud platform that unifies IoT data from vehicles, assets, and operational sites into a single cloud dashboard. Founded in 2015 by Sanjit Biswas and John Bicket (former co-founders of Meraki), Samsara enables commercial fleet operators to manage complex transitions from internal combustion engine (ICE) vehicles to electric vehicles (EVs). Through its advanced Vehicle Gateway (VG) hardware and AI platform, Samsara delivers real-time battery State of Charge (SoC) visibility, low-charge alerts, charging infrastructure map routing, and carbon reduction reporting for thousands of enterprise fleets worldwide.",
+  "key_features": [
+    {
+      "title": "Real-Time Battery State of Charge (SoC) & Range",
+      "description": "Provides second-by-second visibility into current battery percentage, estimated driving range, and active charging states across light, medium, and heavy-duty commercial EVs."
+    },
+    {
+      "title": "Automated Low-Battery & Unplugged Alerts",
+      "description": "Configurable proactive notifications that alert depot operators and drivers if an EV drops below required battery thresholds or sits unplugged at the depot before scheduled dispatch."
+    },
+    {
+      "title": "EV Suitability & Electrification Planning",
+      "description": "Analyzes daily mileage, dwell times, and fuel usage from traditional combustion vehicles to recommend exact EV replacements and calculate anticipated operational cost savings."
+    },
+    {
+      "title": "Charging Station Map Overlays & Route Optimization",
+      "description": "Integrates public and private charging station locations directly onto dispatch dispatch maps, enabling route planners to schedule mid-route top-ups and avoid stranded vehicles."
+    },
+    {
+      "title": "Battery Health & ESG Sustainability Reporting",
+      "description": "Tracks battery state-of-health degradation curves over time and automatically compiles audit-ready greenhouse gas (GHG) and tailpipe emissions reduction reports."
+    }
+  ],
+  "protocols": [
+    "OBD-II / J1939 / J1708 (Heavy-Duty & Light-Duty CAN-bus)",
+    "4G LTE High-Speed IoT Gateway",
+    "REST APIs & Webhooks",
+    "FIPS-Compliant Cloud Security"
+  ],
+  "ideal_for": [
+    "Commercial Fleets Transitioning from ICE to Electric",
+    "Last-Mile Delivery & Courier Operations",
+    "Field Services & Utility Fleet Operations",
+    "Passenger Transit & Shuttle Services",
+    "Construction & Heavy Logistics Fleets"
+  ],
+  "hardware_compatibility": "Samsara Vehicle Gateway (VG series) telematics devices, compatible with commercial light-duty vans, medium-duty step vans, and heavy-duty Class 7-8 electric trucks.",
+  "telematics_integrations": [
+    "Native Samsara Connected Operations Cloud",
+    "Ampcontrol (Depot Smart Charging & Peak Shaving)",
+    "Epic Charging (Fleet Depot Charging)",
+    "Driivz (Energy & Charger Management)",
+    "Fleetio (Fleet Maintenance Management)"
+  ],
+  "pricing_model": "Multi-year enterprise software subscription per vehicle/asset, bundling hardware gateways, software updates, cellular connectivity, and platform access.",
+  "pros": [
+    "Unified single-pane-of-glass dashboard managing ICE vehicles, EVs, assets, and safety cameras simultaneously",
+    "Real-time, low-latency telematics with automated alerts preventing morning depot dispatch surprises",
+    "Sleek, modern cloud interface built by enterprise networking veterans",
+    "Turnkey sustainability reports for corporate ESG and zero-emissions compliance requirements",
+    "Deep API connectivity with dedicated depot charging management software"
+  ],
+  "considerations": [
+    "Primarily a vehicle telematics and operations platform; requires integration with a charging CMS (such as Ampcontrol) for physical charger load balancing",
+    "Typically requires multi-year enterprise contracts rather than flexible monthly pay-as-you-go billing"
+  ],
+  "faqs": [
+    {
+      "question": "What is Samsara and how does it support electric vehicle fleets?",
+      "answer": "Samsara is a Connected Operations Cloud platform that provides real-time GPS tracking, vehicle diagnostics, and AI safety features. For electric fleets, Samsara captures real-time battery State of Charge (SoC), charging status, and vehicle range to help dispatchers keep electric vehicles operating smoothly and prevent range anxiety."
+    },
+    {
+      "question": "How does Samsara prevent commercial EVs from sitting uncharged at depots?",
+      "answer": "Samsara allows fleet managers to configure automated alerts. If an electric vehicle returns to the depot and is not plugged in by a designated hour, or if a charging session is prematurely interrupted, the system automatically sends push or SMS notifications to depot technicians."
+    },
+    {
+      "question": "Can Samsara manage a mixed fleet of diesel, gas, and electric vehicles?",
+      "answer": "Yes. One of Samsara's greatest strengths is mixed-fleet management. Fleet managers can view internal combustion vehicles, plug-in hybrids, and battery-electric vehicles side-by-side in one consolidated dashboard."
+    },
+    {
+      "question": "How does Samsara connect with depot charging management software?",
+      "answer": "Samsara provides open REST APIs and webhooks that feed vehicle battery SoC, current odometer, and scheduled departure times directly into depot charging platforms like Ampcontrol and Epic Charging for dynamic load balancing."
+    },
+    {
+      "question": "Does Samsara offer tools to plan which vehicles to replace with EVs?",
+      "answer": "Yes. Samsara's Fleet Electrification and EV Suitability tools analyze historical trip distances, idle times, and fuel consumption from existing gas and diesel vehicles to identify which routes can be transitioned to electric models without operational friction."
+    }
+  ]
+}

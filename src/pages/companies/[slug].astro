@@ -1,0 +1,715 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection, getEntry, type CollectionEntry } from 'astro:content';
+import { getCompanyMeta, getCompanyDomain, getCompanyLogoUrl } from '../../utils/companyMeta';
+
+export async function getStaticPaths() {
+  const companies = await getCollection('companies');
+  const allAlternatives = await getCollection('alternatives');
+
+  return companies.map((company) => {
+    // Direct comparisons referencing this company
+    const directAlternatives = allAlternatives.filter((alt) =>
+      alt.data.related_companies.some((ref) => ref.id === company.id)
+    );
+
+    // If no direct comparisons, provide other available guides for relational linking
+    const relatedAlternatives = directAlternatives.length > 0
+      ? directAlternatives
+      : allAlternatives.slice(0, 2);
+
+    // Same-category peer alternatives
+    const peerCompanies = companies
+      .filter((c) => c.data.category.id === company.data.category.id && c.id !== company.id)
+      .slice(0, 3);
+
+    // Cross-silo ecosystem partners:
+    // If hardware, link to CPMS software; if software, link to hardware
+    const isHardware = company.data.category.id === 'commercial-ev-charging-hardware';
+    const ecosystemPartners = companies
+      .filter((c) => isHardware
+        ? c.data.category.id === 'ev-fleet-charging-software' || c.data.category.id === 'white-label-cpms-roaming'
+        : c.data.category.id === 'commercial-ev-charging-hardware'
+      )
+      .slice(0, 3);
+
+    return {
+      params: { slug: company.id },
+      props: {
+        company,
+        relatedAlternatives,
+        isDirectAlternative: directAlternatives.length > 0,
+        peerCompanies,
+        ecosystemPartners,
+      },
+    };
+  });
+}
+
+interface Props {
+  company: CollectionEntry<'companies'>;
+  relatedAlternatives: CollectionEntry<'alternatives'>[];
+  isDirectAlternative: boolean;
+  peerCompanies: CollectionEntry<'companies'>[];
+  ecosystemPartners: CollectionEntry<'companies'>[];
+}
+
+const { company, relatedAlternatives, isDirectAlternative, peerCompanies, ecosystemPartners } = Astro.props;
+const category = await getEntry(company.data.category);
+
+const domain = getCompanyDomain(company.data.website_url, company.id);
+const logoUrl = getCompanyLogoUrl(company.data.website_url, company.id, 128);
+const initials = company.data.name.slice(0, 2).toUpperCase();
+
+const enrichedPeers = peerCompanies.map((c) => ({
+  ...c,
+  domain: getCompanyDomain(c.data.website_url, c.id),
+  logoUrl: getCompanyLogoUrl(c.data.website_url, c.id, 64),
+  meta: getCompanyMeta(c.id, c.data.tagline),
+}));
+
+const enrichedPartners = ecosystemPartners.map((c) => ({
+  ...c,
+  domain: getCompanyDomain(c.data.website_url, c.id),
+  logoUrl: getCompanyLogoUrl(c.data.website_url, c.id, 64),
+  meta: getCompanyMeta(c.id, c.data.tagline),
+}));
+
+// Verified platform imagery mapping (if locally cached)
+const companyImages: Record<string, { src: string; caption: string; alt: string }> = {
+  'ampcontrol': {
+    src: '/images/companies/ampcontrol.avif',
+    caption: 'Ampcontrol dynamic EV fleet charging orchestration and real-time load management dashboard.',
+    alt: 'Ampcontrol commercial EV charging management and energy optimization interface',
+  },
+  'ampeco': {
+    src: '/images/companies/ampeco.webp',
+    caption: 'AMPECO enterprise white-label EV charging platform and multi-vendor hardware ecosystem.',
+    alt: 'AMPECO charge point management system architecture and dashboard',
+  },
+  'driivz': {
+    src: '/images/companies/driivz.webp',
+    caption: 'Driivz end-to-end EV charging network operations and smart grid energy management platform.',
+    alt: 'Driivz EV operations and energy management platform overview',
+  },
+  'epic-charging': {
+    src: '/images/companies/epic-charging.svg',
+    caption: 'Epic Charging cloud-native fleet charging management, depot load balancing, and billing software.',
+    alt: 'Epic Charging platform architecture and brand badge',
+  },
+  'geotab': {
+    src: '/images/companies/geotab.webp',
+    caption: 'Geotab telematics platform showing real-time commercial EV fleet state-of-charge, trip metrics, and battery health.',
+    alt: 'Geotab commercial EV fleet telematics dashboard and battery reporting',
+  },
+  'monta': {
+    src: '/images/companies/monta.webp',
+    caption: 'Monta commercial charge point management system, driver access portal, and roaming ecosystem.',
+    alt: 'Monta EV charging software platform overview',
+  },
+  'samsara': {
+    src: '/images/companies/samsara.webp',
+    caption: 'Samsara Connected Operations Cloud for EV fleet telematics, real-time safety, and asset monitoring.',
+    alt: 'Samsara EV fleet management dashboard and live telematics',
+  },
+};
+
+const platformImage = companyImages[company.id];
+
+// Determine primary alternative link for the CTA
+const primaryAlternativeUrl = isDirectAlternative && relatedAlternatives.length > 0
+  ? `/alternatives/${relatedAlternatives[0].id}`
+  : '/alternatives';
+
+// Prepare 2-paragraph value proposition
+let paragraphOne = '';
+let paragraphTwo = '';
+
+if (company.data.overview) {
+  const parts = company.data.overview.split('\n\n').filter((p) => p.trim().length > 0);
+  if (parts.length >= 2) {
+    paragraphOne = parts[0];
+    paragraphTwo = parts[1];
+  } else {
+    paragraphOne = company.data.overview;
+    // Generate context-aware 2nd paragraph for operational enterprise buyers
+    paragraphTwo = `${company.data.name} is architected for commercial fleet operators requiring dependable uptime, scalable power distribution, and multi-depot coordination. By bridging on-site charger infrastructure with intelligent software controls, the platform helps operators cut utility demand charges, automate driver dispatch schedules, and maintain continuous vehicle readiness.`;
+  }
+} else {
+  paragraphOne = `${company.data.name} is a verified commercial EV fleet software provider specializing in ${category?.data.title || 'commercial EV fleet management'}. Operating from ${company.data.headquarters} since ${company.data.founded_year}, the platform provides enterprise fleet managers with centralized tools to manage charging infrastructure and operational efficiency.`;
+  paragraphTwo = `Through modular protocol interoperability, the platform synchronizes charging hardware, telematics telemetry, and facility electrical constraints to ensure reliable day-to-day operations and lower total cost of ownership across fleet depots.`;
+}
+
+// 1. Advanced JSON-LD: SoftwareApplication Schema with valid price format
+const softwareAppSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: company.data.name,
+  applicationCategory: category?.data.title || 'Commercial EV Fleet Software',
+  operatingSystem: 'Cloud, Web, On-Premises Edge',
+  description: paragraphOne,
+  url: `https://www.evstartups.com/companies/${company.id}`,
+  offers: {
+    '@type': 'Offer',
+    price: 0,
+    priceCurrency: 'USD',
+    availability: 'https://schema.org/InStock',
+    description: company.data.pricing_model || 'Enterprise / Custom Pricing',
+  },
+  author: {
+    '@type': 'Organization',
+    name: company.data.name,
+    foundingDate: company.data.founded_year.toString(),
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: company.data.headquarters,
+    },
+  },
+};
+
+// 2. Advanced JSON-LD: FAQPage Schema
+const faqSchema = company.data.faqs && company.data.faqs.length > 0 ? {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: company.data.faqs.map((faq) => ({
+    '@type': 'Question',
+    name: faq.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: faq.answer,
+    },
+  })),
+} : null;
+
+// 3. Advanced JSON-LD: BreadcrumbList Schema (Home > Companies > [Company Name])
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Home',
+      item: 'https://www.evstartups.com',
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Companies',
+      item: 'https://www.evstartups.com/companies',
+    },
+    {
+      '@type': 'ListItem',
+      position: 3,
+      name: company.data.name,
+      item: `https://www.evstartups.com/companies/${company.id}`,
+    },
+  ],
+};
+
+const jsonLd = faqSchema ? [breadcrumbSchema, softwareAppSchema, faqSchema] : [breadcrumbSchema, softwareAppSchema];
+---
+
+<Layout
+  title={`${company.data.name} - Commercial EV Software & Specs | evStartups.com`}
+  description={paragraphOne.slice(0, 155) + '...'}
+  jsonLd={jsonLd}
+>
+  <div class="bg-slate-50 min-h-screen pb-20">
+    
+    <!-- Clean Header (Zero Outbound External Links) -->
+    <header class="border-b border-slate-200/80 bg-white py-12 sm:py-14">
+      <div class="mx-auto max-w-6xl px-4 sm:px-6">
+        <nav class="flex items-center gap-2 text-xs font-medium text-slate-500 mb-6">
+          <a href="/" class="hover:text-slate-900 transition">Home</a>
+          <span>/</span>
+          <a href="/companies" class="hover:text-slate-900 transition">Companies</a>
+          <span>/</span>
+          <span class="text-slate-900 font-semibold">{company.data.name}</span>
+        </nav>
+
+        <div class="flex items-start gap-4 sm:gap-5">
+          <div class="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl border border-slate-200 bg-slate-50 p-2.5 shadow-xs">
+            <img
+              src={logoUrl}
+              alt={`${company.data.name} logo`}
+              width="48"
+              height="48"
+              decoding="async"
+              class="h-10 w-10 object-contain rounded"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+            />
+            <span class="hidden h-10 w-10 items-center justify-center font-bold text-base text-slate-800">
+              {initials}
+            </span>
+          </div>
+          <div>
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="inline-flex items-center rounded-md bg-emerald-50 px-2 py-0.5 text-xs font-bold text-emerald-700 border border-emerald-200/60">
+                Verified Vendor
+              </span>
+              {category && (
+                <a href={`/categories/${category.id}`} class="text-xs font-medium text-emerald-600 hover:text-emerald-700 hover:underline">
+                  {category.data.title}
+                </a>
+              )}
+            </div>
+            <h1 class="mt-2 text-2xl font-extrabold tracking-tight text-slate-950 sm:text-3xl lg:text-4xl font-['Plus_Jakarta_Sans']">
+              {company.data.name}
+            </h1>
+            {company.data.tagline && (
+              <p class="mt-1.5 text-sm sm:text-base font-medium text-slate-600">
+                {company.data.tagline}
+              </p>
+            )}
+            <p class="mt-1 text-xs text-slate-500">
+              Headquartered in {company.data.headquarters} &bull; Founded in {company.data.founded_year}
+            </p>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Lean MVP 2-Column Layout -->
+    <main class="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+      <div class="grid grid-cols-1 gap-10 lg:grid-cols-3">
+        
+        <!-- Left Column: Main Content -->
+        <div class="lg:col-span-2 space-y-12">
+          
+          <!-- 1. Overview: 2-Paragraph Value Proposition + Screenshot Box -->
+          <section class="space-y-4">
+            <h2 class="text-2xl font-bold text-slate-950 font-['Plus_Jakarta_Sans']">
+              Overview & Value Proposition
+            </h2>
+            <div class="space-y-4 text-sm sm:text-base leading-relaxed text-slate-700">
+              <p>{paragraphOne}</p>
+              <p>{paragraphTwo}</p>
+            </div>
+
+            <!-- UI Dashboard Visual (Verified Screenshot or Placeholder) -->
+            {platformImage ? (
+              <figure class="mt-6 overflow-hidden rounded-xl border border-slate-200 bg-white shadow-xs">
+                <div class="flex items-center justify-center bg-slate-100/70 p-4 sm:p-6">
+                  <img
+                    src={platformImage.src}
+                    alt={platformImage.alt}
+                    width="800"
+                    height="450"
+                    loading="lazy"
+                    decoding="async"
+                    class="max-h-[380px] w-full object-contain rounded-lg shadow-2xs"
+                  />
+                </div>
+                <figcaption class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 border-t border-slate-100 bg-white px-5 py-3 text-xs text-slate-500">
+                  <span class="font-medium text-slate-600">{platformImage.caption}</span>
+                  <span class="shrink-0 text-[11px] text-slate-400">Verified Platform UI</span>
+                </figcaption>
+              </figure>
+            ) : (
+              <div class="mt-6 aspect-video bg-slate-100 rounded-xl flex flex-col items-center justify-center border border-slate-200 p-6 text-center shadow-xs">
+                <svg class="h-10 w-10 text-slate-400 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+                <span class="text-sm font-semibold text-slate-700">{company.data.name} Fleet Management Portal</span>
+                <span class="text-xs text-slate-500 mt-1">Telematics & Real-Time Charger Dashboard</span>
+              </div>
+            )}
+          </section>
+
+          <!-- 2. Core Capabilities: Numbered List -->
+          {company.data.key_features && company.data.key_features.length > 0 && (
+            <section class="space-y-4">
+              <h2 class="text-2xl font-bold text-slate-950 font-['Plus_Jakarta_Sans']">
+                Core Capabilities & Key Features
+              </h2>
+              <div class="space-y-3">
+                {company.data.key_features.map((feature, idx) => (
+                  <div class="flex items-start gap-4 rounded-xl border border-slate-200 bg-white p-5 shadow-xs">
+                    <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-emerald-50 text-xs font-bold text-emerald-700 border border-emerald-200/60 font-mono">
+                      {String(idx + 1).padStart(2, '0')}
+                    </span>
+                    <div>
+                      <h3 class="font-semibold text-slate-900 text-base font-['Plus_Jakarta_Sans']">
+                        {feature.title}
+                      </h3>
+                      <p class="mt-1 text-sm text-slate-600 leading-relaxed">
+                        {feature.description}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          <!-- 3. Interoperability & Technical Protocols -->
+          <section class="rounded-xl border border-slate-200 bg-white p-6 sm:p-7 shadow-xs space-y-6">
+            <h2 class="text-xl font-bold text-slate-950 font-['Plus_Jakarta_Sans']">
+              Interoperability & Integrations
+            </h2>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 text-sm">
+              <div>
+                <span class="text-xs font-bold uppercase tracking-wider text-slate-500 block mb-2">
+                  Charger Hardware Compatibility:
+                </span>
+                <p class="text-xs leading-relaxed text-slate-700">
+                  {company.data.hardware_compatibility || 'Supports standard OCPP 1.6J and 2.0.1 certified AC Level 2 and DC Fast Chargers across major EVSE manufacturers.'}
+                </p>
+              </div>
+
+              {company.data.telematics_integrations && (
+                <div>
+                  <span class="text-xs font-bold uppercase tracking-wider text-slate-500 block mb-2">
+                    Supported Telematics Systems:
+                  </span>
+                  <div class="flex flex-wrap gap-1.5">
+                    {company.data.telematics_integrations.map((t) => (
+                      <span class="rounded bg-slate-100 border border-slate-200 px-2 py-1 text-xs font-medium text-slate-700">
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {company.data.protocols && (
+              <div class="border-t border-slate-100 pt-5">
+                <span class="text-xs font-bold uppercase tracking-wider text-slate-500 block mb-2.5">
+                  Supported Protocols & Standards:
+                </span>
+                <div class="flex flex-wrap gap-1.5">
+                  {company.data.protocols.map((proto) => (
+                    <span class="bg-emerald-50 text-emerald-700 text-xs px-2 py-1 rounded font-mono font-medium border border-emerald-100">
+                      {proto}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+          </section>
+
+          <!-- 4. Pros & Considerations: 2-Column Grid -->
+          {(company.data.pros || company.data.considerations) && (
+            <section class="space-y-4">
+              <h2 class="text-2xl font-bold text-slate-950 font-['Plus_Jakarta_Sans']">
+                Pros & Considerations
+              </h2>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                
+                <!-- Left: Key Advantages (Green Checkmarks) -->
+                {company.data.pros && (
+                  <div class="rounded-xl border border-emerald-200/80 bg-emerald-50/40 p-6 shadow-xs">
+                    <h3 class="text-sm font-bold text-emerald-950 flex items-center gap-2">
+                      <svg class="h-4 w-4 text-emerald-600 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                      </svg>
+                      Key Advantages
+                    </h3>
+                    <ul class="mt-3.5 space-y-2.5 text-xs text-slate-700">
+                      {company.data.pros.map((p) => (
+                        <li class="flex items-start gap-2">
+                          <span class="text-emerald-600 font-bold shrink-0">✓</span>
+                          <span>{p}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                <!-- Right: Considerations (Subtle Orange Warning Icons + bg-orange-50/50) -->
+                {company.data.considerations && (
+                  <div class="rounded-xl border border-orange-200/80 bg-orange-50/50 p-6 shadow-xs">
+                    <h3 class="text-sm font-bold text-orange-950 flex items-center gap-2">
+                      <svg class="h-4 w-4 text-orange-600 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                      </svg>
+                      Considerations
+                    </h3>
+                    <ul class="mt-3.5 space-y-2.5 text-xs text-slate-700">
+                      {company.data.considerations.map((c) => (
+                        <li class="flex items-start gap-2">
+                          <span class="text-orange-600 font-bold shrink-0">!</span>
+                          <span>{c}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+              </div>
+            </section>
+          )}
+
+          <!-- 5. FAQs: Accordion-Style FAQ Block -->
+          {company.data.faqs && company.data.faqs.length > 0 && (
+            <section class="space-y-4">
+              <h2 class="text-2xl font-bold text-slate-950 font-['Plus_Jakarta_Sans']">
+                Frequently Asked Questions
+              </h2>
+              <div class="space-y-3">
+                {company.data.faqs.map((faq) => (
+                  <details class="group rounded-xl border border-slate-200 bg-white p-5 transition duration-150 open:border-emerald-500/50 open:shadow-xs">
+                    <summary class="flex cursor-pointer items-center justify-between font-semibold text-slate-900 group-open:text-emerald-700 transition select-none list-none text-base">
+                      <span>{faq.question}</span>
+                      <svg class="h-5 w-5 shrink-0 text-slate-400 group-open:rotate-180 group-open:text-emerald-600 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </summary>
+                    <p class="mt-3 text-sm text-slate-600 leading-relaxed border-t border-slate-100 pt-3">
+                      {faq.answer}
+                    </p>
+                  </details>
+                ))}
+              </div>
+            </section>
+          )}
+
+          <!-- 6. Relational Internal Linking: Head-to-Head Comparisons -->
+          {relatedAlternatives.length > 0 && (
+            <section class="space-y-4 border-t border-slate-200 pt-10">
+              <h2 class="text-2xl font-bold text-slate-950 font-['Plus_Jakarta_Sans']">
+                Head-to-Head Comparisons
+              </h2>
+              <p class="text-sm text-slate-600">
+                Evaluate how {company.data.name} stacks up against alternative commercial EV fleet and charging platforms.
+              </p>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                {relatedAlternatives.map((alt) => (
+                  <a
+                    href={`/alternatives/${alt.id}`}
+                    class="group flex flex-col justify-between rounded-xl border border-slate-200 bg-white p-5 hover:border-emerald-500 hover:shadow-md transition-all duration-200"
+                  >
+                    <div>
+                      <span class="inline-block rounded-md bg-slate-100 px-2.5 py-0.5 text-[11px] font-semibold text-slate-700 mb-2">
+                        {alt.data.target_keyword}
+                      </span>
+                      <h3 class="text-base font-bold text-slate-900 group-hover:text-emerald-600 transition font-['Plus_Jakarta_Sans']">
+                        {alt.data.title}
+                      </h3>
+                    </div>
+                    <div class="mt-4 flex items-center justify-between border-t border-slate-100 pt-3">
+                      <span class="text-xs font-semibold text-emerald-600 group-hover:text-emerald-700 transition">
+                        Read Comparison Guide &rarr;
+                      </span>
+                      <span class="text-[11px] text-slate-400">Deep Dive</span>
+                    </div>
+                  </a>
+                ))}
+              </div>
+            </section>
+          )}
+
+          <!-- 7. Cross-Entity Mesh: Same Category Alternatives -->
+          {enrichedPeers.length > 0 && (
+            <section class="space-y-4 border-t border-slate-200 pt-10">
+              <div class="flex items-center justify-between">
+                <div>
+                  <h2 class="text-xl font-bold text-slate-950 font-['Plus_Jakarta_Sans']">
+                    Alternative {category ? category.data.title : 'Platforms'}
+                  </h2>
+                  <p class="text-xs text-slate-500 mt-0.5">
+                    Explore verified competitors operating in the same technical silo
+                  </p>
+                </div>
+                {category && (
+                  <a href={`/categories/${category.id}`} class="text-xs font-bold text-emerald-600 hover:text-emerald-700 transition">
+                    View Category Silo &rarr;
+                  </a>
+                )}
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+                {enrichedPeers.map((peer) => {
+                  const peerInitials = peer.data.name.slice(0, 2).toUpperCase();
+                  return (
+                    <a
+                      href={`/companies/${peer.id}`}
+                      class="group flex flex-col justify-between rounded-xl border border-slate-200 bg-white p-4.5 hover:border-emerald-500 hover:shadow-md transition-all duration-200"
+                    >
+                      <div>
+                        <div class="flex items-center gap-2.5">
+                          <img
+                            src={peer.logoUrl}
+                            alt={`${peer.data.name} icon`}
+                            width="24"
+                            height="24"
+                            loading="lazy"
+                            decoding="async"
+                            class="h-6 w-6 object-contain rounded bg-slate-50 p-0.5"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                          />
+                          <span class="hidden h-6 w-6 items-center justify-center font-bold text-[10px] text-slate-700 rounded bg-slate-100">
+                            {peerInitials}
+                          </span>
+                          <div>
+                            <h3 class="text-sm font-bold text-slate-900 group-hover:text-emerald-600 transition font-['Plus_Jakarta_Sans'] line-clamp-1">
+                              {peer.data.name}
+                            </h3>
+                            <span class="text-[10px] text-slate-400 block">{peer.data.headquarters}</span>
+                          </div>
+                        </div>
+
+                        <p class="mt-3 text-xs text-slate-600 line-clamp-2 leading-relaxed">
+                          {peer.meta.summary}
+                        </p>
+                      </div>
+
+                      <div class="mt-4 flex items-center justify-between border-t border-slate-100 pt-2.5 text-[11px]">
+                        <span class="font-semibold text-emerald-600 group-hover:text-emerald-700 transition">
+                          View Specs &rarr;
+                        </span>
+                        <span class="text-slate-400 font-mono text-[10px]">{peer.meta.tag}</span>
+                      </div>
+                    </a>
+                  );
+                })}
+              </div>
+            </section>
+          )}
+
+          <!-- 8. Cross-Entity Mesh: Compatible Ecosystem Silos -->
+          {enrichedPartners.length > 0 && (
+            <section class="space-y-4 border-t border-slate-200 pt-10">
+              <div class="flex items-center justify-between">
+                <div>
+                  <h2 class="text-xl font-bold text-slate-950 font-['Plus_Jakarta_Sans']">
+                    {company.data.category.id === 'commercial-ev-charging-hardware' ? 'Compatible Depot & Energy Management Software' : 'Compatible Commercial Hardware & EVSE'}
+                  </h2>
+                  <p class="text-xs text-slate-500 mt-0.5">
+                    {company.data.category.id === 'commercial-ev-charging-hardware' ? 'Software platforms operating OCPP chargers from this hardware manufacturer' : 'Hardware architectures tested with open protocol integration'}
+                  </p>
+                </div>
+                <a href={company.data.category.id === 'commercial-ev-charging-hardware' ? '/categories/ev-fleet-charging-software' : '/categories/commercial-ev-charging-hardware'} class="text-xs font-bold text-emerald-600 hover:text-emerald-700 transition">
+                  Browse {company.data.category.id === 'commercial-ev-charging-hardware' ? 'Software Silo' : 'Hardware Silo'} &rarr;
+                </a>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+                {enrichedPartners.map((partner) => {
+                  const partnerInitials = partner.data.name.slice(0, 2).toUpperCase();
+                  return (
+                    <a
+                      href={`/companies/${partner.id}`}
+                      class="group flex flex-col justify-between rounded-xl border border-slate-200 bg-white p-4.5 hover:border-emerald-500 hover:shadow-md transition-all duration-200"
+                    >
+                      <div>
+                        <div class="flex items-center gap-2.5">
+                          <img
+                            src={partner.logoUrl}
+                            alt={`${partner.data.name} icon`}
+                            width="24"
+                            height="24"
+                            loading="lazy"
+                            decoding="async"
+                            class="h-6 w-6 object-contain rounded bg-slate-50 p-0.5"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                          />
+                          <span class="hidden h-6 w-6 items-center justify-center font-bold text-[10px] text-slate-700 rounded bg-slate-100">
+                            {partnerInitials}
+                          </span>
+                          <div>
+                            <h3 class="text-sm font-bold text-slate-900 group-hover:text-emerald-600 transition font-['Plus_Jakarta_Sans'] line-clamp-1">
+                              {partner.data.name}
+                            </h3>
+                            <span class="text-[10px] text-slate-400 block">{partner.data.headquarters}</span>
+                          </div>
+                        </div>
+
+                        <p class="mt-3 text-xs text-slate-600 line-clamp-2 leading-relaxed">
+                          {partner.meta.summary}
+                        </p>
+                      </div>
+
+                      <div class="mt-4 flex items-center justify-between border-t border-slate-100 pt-2.5 text-[11px]">
+                        <span class="font-semibold text-emerald-600 group-hover:text-emerald-700 transition">
+                          View Specs &rarr;
+                        </span>
+                        <span class="text-slate-400 font-mono text-[10px]">{partner.meta.tag}</span>
+                      </div>
+                    </a>
+                  );
+                })}
+              </div>
+            </section>
+          )}
+
+        </div>
+
+        <!-- Right Column: Sticky Sidebar (Link Equity Protection) -->
+        <aside class="lg:col-span-1">
+          <div class="sticky top-24 rounded-xl border border-slate-200 bg-white p-6 shadow-xs space-y-6">
+            <h2 class="text-xs font-bold uppercase tracking-wider text-slate-900 border-b border-slate-100 pb-3">
+              Quick Specifications
+            </h2>
+
+            <dl class="space-y-3.5 text-xs">
+              <div class="flex items-center justify-between border-b border-slate-100 pb-2.5">
+                <dt class="font-medium text-slate-500">Headquarters</dt>
+                <dd class="font-semibold text-slate-900 text-right">{company.data.headquarters}</dd>
+              </div>
+              <div class="flex items-center justify-between border-b border-slate-100 pb-2.5">
+                <dt class="font-medium text-slate-500">Founded Year</dt>
+                <dd class="font-semibold text-slate-900">{company.data.founded_year}</dd>
+              </div>
+              <div class="flex items-center justify-between border-b border-slate-100 pb-2.5">
+                <dt class="font-medium text-slate-500">Category</dt>
+                <dd class="font-semibold text-right">
+                  {category ? (
+                    <a href={`/categories/${category.id}`} class="text-emerald-600 hover:text-emerald-700 hover:underline">
+                      {category.data.title}
+                    </a>
+                  ) : (
+                    'Commercial EV Software'
+                  )}
+                </dd>
+              </div>
+              <div class="border-b border-slate-100 pb-2.5">
+                <dt class="font-medium text-slate-500 mb-1">Pricing Model</dt>
+                <dd class="font-semibold text-slate-900 leading-snug">
+                  {company.data.pricing_model || 'Enterprise Annual SaaS Subscription'}
+                </dd>
+              </div>
+            </dl>
+
+            <!-- Ideal For Fleets Bulleted List -->
+            {company.data.ideal_for && (
+              <div class="border-t border-slate-100 pt-4">
+                <span class="text-xs font-bold text-slate-900 block mb-2">Ideal For Fleets:</span>
+                <ul class="space-y-1.5 text-xs text-slate-600">
+                  {company.data.ideal_for.map((f) => (
+                    <li class="flex items-start gap-1.5">
+                      <span class="text-emerald-600 font-bold shrink-0">✓</span>
+                      <span>{f}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            <!-- Primary CTA: Maximize Dwell Time (Internal Route to /alternatives/) -->
+            <div class="pt-2">
+              <a
+                href={primaryAlternativeUrl}
+                class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold w-full py-3 rounded-lg text-center transition-all block shadow-xs hover:shadow-md"
+              >
+                Compare {company.data.name} Alternatives
+              </a>
+
+              <!-- Secondary Text: Lean Contact to /contact -->
+              <a
+                href="/contact"
+                class="text-xs text-slate-500 hover:text-slate-800 text-center block mt-3 underline-offset-2 hover:underline"
+              >
+                Are you with {company.data.name}? Contact the editor to update this profile.
+              </a>
+            </div>
+          </div>
+        </aside>
+
+      </div>
+    </main>
+  </div>
+</Layout>

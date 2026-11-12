@@ -1,0 +1,87 @@
+{
+  "name": "Driivz",
+  "website_url": "https://driivz.com",
+  "founded_year": 2012,
+  "headquarters": "Tel Aviv, Israel",
+  "category": "white-label-cpms-roaming",
+  "tagline": "Enterprise EV Charging Network Management, Smart Energy Orchestration & V2G Platform",
+  "overview": "Driivz (a Vontier company) is a leading global enterprise cloud platform for EV charging network management and smart energy optimization. Founded in 2012 by Doron Frenkel in Tel Aviv, Driivz powers major global utilities, oil & gas supermajors, automotive OEMs, and commercial fleet depots across more than 30 countries. The platform manages hundreds of thousands of active charging points, specializing in high-density depot energy orchestration, automated self-healing charger diagnostics, and cutting-edge Vehicle-to-Grid (V2G/V2X) grid integration.",
+  "key_features": [
+    {
+      "title": "Smart Energy Orchestration & Peak Shaving",
+      "description": "Dynamically manages depot power consumption by harmonizing grid electrical constraints, onsite solar photovoltaics (PV), and stationary battery energy storage systems (BESS) to eliminate peak utility demand charges."
+    },
+    {
+      "title": "Automated Self-Healing Diagnostics",
+      "description": "Patented algorithms detect charging irregularities and autonomously execute remote soft resets, cable unlatches, and configuration tweaks, resolving up to 80% of charger issues without truck rolls."
+    },
+    {
+      "title": "Commercial Fleet Depot Scheduling",
+      "description": "Aligns individual vehicle departure schedules, required battery State of Charge (SoC), and shift patterns to guarantee vehicles are fully powered prior to driver dispatch."
+    },
+    {
+      "title": "Vehicle-to-Grid (V2G) & Demand Response",
+      "description": "Enables bidirectional energy flow (ISO 15118-20 / OpenADR 2.0b), allowing commercial fleet batteries to feed power back into the utility grid during extreme demand events for revenue generation."
+    },
+    {
+      "title": "Enterprise Clearinghouse & Multi-Tenant Billing",
+      "description": "Robust financial reconciliation engine capable of handling high-volume transactions, multi-currency processing, complex electricity tariff schedules, and fleet expense allocation."
+    }
+  ],
+  "protocols": [
+    "OCPP 1.6J",
+    "OCPP 2.0.1",
+    "OCPI 2.2.1 (Roaming)",
+    "ISO 15118 (Plug & Charge & V2G)",
+    "OpenADR 2.0b",
+    "REST APIs & Webhooks"
+  ],
+  "ideal_for": [
+    "High-Density Commercial EV Depots (Vans, Buses, Trucks)",
+    "Energy Utilities & Grid Power Operators",
+    "Oil & Gas Mobility Retailers & CPOs",
+    "Municipal Transit Authorities with Large Electric Bus Fleets",
+    "Sites with Onsite Solar (PV) and Battery Storage (BESS)"
+  ],
+  "hardware_compatibility": "100% hardware-agnostic with verified integration across 200+ AC and DC fast charger manufacturers, including ABB, Alfen, BTC Power, Delta, Kempower, Schneider Electric, and Tritium.",
+  "telematics_integrations": [
+    "Geotab",
+    "Samsara",
+    "Webfleet",
+    "Enterprise Fleet ERP & Dispatch Systems via REST API"
+  ],
+  "pricing_model": "Enterprise SaaS licensing scaled by connected charging port volume, with custom implementation, integration, and dedicated 24/7 SLA tiers.",
+  "pros": [
+    "Industry leader in advanced energy management integrating onsite renewables and battery storage (BESS)",
+    "Patented automated self-healing technology resolves up to 80% of charger faults remotely, drastically cutting maintenance costs",
+    "Pioneering Vehicle-to-Grid (V2G/V2X) capabilities for grid stabilization and energy monetization",
+    "Backed by Vontier Corporation, offering long-term balance sheet stability for major enterprise infrastructure projects",
+    "Proven reliability across Tier-1 global energy networks (such as EVgo, Centrica, Mer, and Circle K)"
+  ],
+  "considerations": [
+    "Engineered for enterprise operators; not suited for small fleets with only a few basic chargers",
+    "Implementation and onboarding require technical coordination with IT and electrical engineering teams"
+  ],
+  "faqs": [
+    {
+      "question": "What is Driivz and what does it do for EV fleet depots?",
+      "answer": "Driivz is an enterprise cloud platform that manages EV charging infrastructure and energy flow. For commercial fleets, Driivz coordinates charging schedules to ensure every vehicle is fully charged before its shift, while dynamically managing electricity to prevent costly utility peak demand fees."
+    },
+    {
+      "question": "How does Driivz's automated self-healing technology work?",
+      "answer": "Driivz continuously monitors OCPP charger communications. When it detects an error (such as a communication timeout, ground fault, or connector lock issue), the platform runs automated diagnostic routines and soft resets that resolve up to 80% of issues remotely without needing to dispatch an on-site technician."
+    },
+    {
+      "question": "Can Driivz integrate onsite solar panels and battery storage with EV charging?",
+      "answer": "Yes. Driivz's Energy Management System (EMS) integrates with onsite solar (PV), stationary battery storage (BESS), and facility building loads to dynamically route clean, low-cost power directly into fleet vehicles."
+    },
+    {
+      "question": "Does Driivz support Vehicle-to-Grid (V2G) technology?",
+      "answer": "Yes. Driivz is a pioneer in bidirectional charging and supports ISO 15118-20 and OpenADR 2.0b, enabling commercial fleets to participate in utility demand-response programs and sell stored battery power back to the grid during peak hours."
+    },
+    {
+      "question": "Which charger brands are compatible with Driivz?",
+      "answer": "Driivz is fully hardware-agnostic and supports more than 200 charger manufacturers that follow OCPP standards, including ABB, Alfen, Delta, Kempower, Schneider Electric, and Tritium."
+    }
+  ]
+}

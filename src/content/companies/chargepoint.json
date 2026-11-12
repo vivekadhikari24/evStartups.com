@@ -1,0 +1,83 @@
+{
+  "name": "ChargePoint",
+  "website_url": "https://www.chargepoint.com",
+  "founded_year": 2007,
+  "headquarters": "Campbell, California",
+  "category": "ev-fleet-charging-software",
+  "tagline": "End-to-End Fleet Electrification Software, AC/DC Depot Hardware & Energy Management",
+  "overview": "ChargePoint is one of the world's oldest and most extensive electric vehicle charging technology providers, delivering integrated charging hardware and cloud software architecture for commercial fleets. Founded in 2007 in Campbell, California, ChargePoint supports light-duty delivery fleets, municipal transit bus systems, and Class 7-8 heavy freight operators with dedicated depot charging management software (ChargePoint Fleet). The platform orchestrates multi-vehicle depot charging schedules, mitigates costly peak demand charges through dynamic power sharing, and connects vehicle telematics with depot hardware via bi-directional cloud APIs.",
+  "key_features": [
+    {
+      "title": "Depot Smart Energy Management & Load Throttling",
+      "description": "Dynamically throttles electrical output across simultaneous charging sessions to keep depot demand below utility contractual thresholds and prevent peak demand surcharges."
+    },
+    {
+      "title": "Integrated Turnkey Hardware & Cloud Ecosystem",
+      "description": "Native integration between ChargePoint commercial EVSE (Express Plus DC fast chargers, CPF50 AC units) and cloud fleet management software for centralized diagnostics."
+    },
+    {
+      "title": "Telematics API & State-of-Charge Sync",
+      "description": "Direct API connections with commercial fleet telematics platforms to capture battery SoC and automate morning departure readiness for delivery schedules."
+    },
+    {
+      "title": "Take-Home Fleet Charging & Automated Billing",
+      "description": "Provides dedicated software workflows for distributed field vehicles charging at employee residences with centralized utility cost accounting and driver reimbursement."
+    },
+    {
+      "title": "Comprehensive Depot Uptime & 24/7 Field Support",
+      "description": "Continuous cloud station monitoring with proactive fault code detection, remote firmware deployment, and on-site hardware maintenance service agreements."
+    }
+  ],
+  "protocols": [
+    "OCPP 1.6J",
+    "ISO 15118 (Plug & Charge)",
+    "ChargePoint Cloud API",
+    "OpenADR 2.0b (Automated Demand Response)"
+  ],
+  "ideal_for": [
+    "Municipal Transit Authorities and Electric Bus Operators",
+    "Commercial Logistics & Last-Mile Delivery Depots",
+    "Class 7 & Class 8 Heavy Duty Electric Freight Fleets",
+    "Corporate Campus Light-Duty Fleets",
+    "Fleets Requiring Single-Vendor Hardware and Software Support"
+  ],
+  "hardware_compatibility": "Native integration with ChargePoint Express Plus DC fast chargers, Express 250, and CPF50 commercial chargers, alongside certified OCPP 1.6J hardware deployments.",
+  "telematics_integrations": [
+    "Geotab",
+    "Samsara",
+    "Motive",
+    "Fleetio",
+    "Direct OEM Fleet Telematics APIs"
+  ],
+  "pricing_model": "Annual SaaS software subscription per port under ChargePoint Fleet management tiers, bundled with hardware procurement or standalone cloud subscription.",
+  "pros": [
+    "Proven enterprise track record supporting major transit agencies and global logistics carriers",
+    "Single-vendor procurement options covering DC fast charging hardware, depot software, and installation",
+    "Deep automated demand response integration via OpenADR 2.0b with regional electric utilities",
+    "Nationwide public roaming network access for commercial drivers en-route",
+    "Comprehensive 24/7 monitoring and enterprise field service maintenance"
+  ],
+  "considerations": [
+    "Most optimized when operating on native ChargePoint commercial charging hardware",
+    "Enterprise-level pricing and procurement cycle designed primarily for larger commercial fleets"
+  ],
+  "faqs": [
+    {
+      "question": "What is ChargePoint Fleet and what does it manage?",
+      "answer": "ChargePoint Fleet is a cloud-based depot charging management platform designed for commercial vehicle operators. It manages simultaneous vehicle charging, schedules sessions during low utility tariff windows, throttles power to avoid peak demand surcharges, and ensures vehicles are charged to target battery thresholds prior to route dispatch."
+    },
+    {
+      "question": "Does ChargePoint work with third-party OCPP charging stations?",
+      "answer": "While ChargePoint software is engineered for maximum performance with native ChargePoint commercial EVSE (such as the Express Plus architecture), it supports OCPP 1.6J compliant charging hardware for mixed-hardware fleet environments."
+    },
+    {
+      "question": "How does ChargePoint Fleet reduce depot electricity bills?",
+      "answer": "ChargePoint uses dynamic power management to balance charging output based on real-time depot electrical limits and time-of-use (TOU) utility rates. By spreading charging sessions across overnight hours and throttling output when total power approaches peak thresholds, fleets avoid costly utility demand penalties."
+    },
+    {
+      "question": "Can ChargePoint integrate with vehicle telematics like Geotab or Samsara?",
+      "answer": "Yes. ChargePoint offers bi-directional telematics integrations with leading platforms including Geotab, Samsara, and Motive. This allows the software to ingest live vehicle battery state of charge (SoC) and route schedules to prioritize vehicles needing faster turnaround."
+    }
+  ]
+}
+

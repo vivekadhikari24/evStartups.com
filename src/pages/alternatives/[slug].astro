@@ -1,0 +1,253 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection, getEntry, type CollectionEntry } from 'astro:content';
+import { getCompanyMeta, getCompanyDomain, getCompanyLogoUrl } from '../../utils/companyMeta';
+
+export async function getStaticPaths() {
+  const alternatives = await getCollection('alternatives');
+  return alternatives.map((alternative) => ({
+    params: { slug: alternative.id },
+    props: { alternative },
+  }));
+}
+
+interface Props {
+  alternative: CollectionEntry<'alternatives'>;
+}
+
+const { alternative } = Astro.props;
+
+const relatedCompanies = await Promise.all(
+  alternative.data.related_companies.map((ref) => getEntry(ref))
+);
+
+const validCompanies = relatedCompanies.filter(Boolean).map((company) => {
+  const domain = getCompanyDomain(company.data.website_url, company.id);
+  const logoUrl = getCompanyLogoUrl(company.data.website_url, company.id, 128);
+  const meta = getCompanyMeta(company.id, company.data.tagline);
+  return {
+    ...company,
+    domain,
+    logoUrl,
+    meta,
+  };
+});
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Home',
+      item: 'https://www.evstartups.com',
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Comparisons',
+      item: 'https://www.evstartups.com/alternatives',
+    },
+    {
+      '@type': 'ListItem',
+      position: 3,
+      name: alternative.data.title,
+      item: `https://www.evstartups.com/alternatives/${alternative.id}`,
+    },
+  ],
+};
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: alternative.data.title,
+  description: `Side-by-side competitor breakdown and alternative evaluation for ${alternative.data.target_keyword}.`,
+  url: `https://www.evstartups.com/alternatives/${alternative.id}`,
+  author: {
+    '@type': 'Organization',
+    name: 'evStartups.com Editorial Team',
+  },
+};
+
+const jsonLd = [breadcrumbSchema, articleSchema];
+---
+
+<Layout
+  title={`${alternative.data.title} | Software Comparison Guide`}
+  description={`Compare top alternatives for ${alternative.data.target_keyword}. Detailed side-by-side specifications for leading EV software solutions.`}
+  jsonLd={jsonLd}
+>
+  <div class="bg-slate-50 min-h-screen pb-20">
+    <!-- Clean Header -->
+    <header class="border-b border-slate-200/80 bg-white py-14 sm:py-16">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6">
+      <nav class="flex items-center gap-2 text-xs font-medium text-slate-500 mb-4">
+        <a href="/" class="hover:text-slate-900 transition">Home</a>
+        <span>/</span>
+        <a href="/alternatives" class="hover:text-slate-900 transition">Comparisons</a>
+        <span>/</span>
+        <span class="text-slate-900 font-semibold">{alternative.data.title}</span>
+      </nav>
+
+      <div class="max-w-3xl">
+        <span class="inline-flex items-center rounded-md bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-800">
+          Target Keyword: {alternative.data.target_keyword}
+        </span>
+        <h1 class="mt-3 text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl font-['Plus_Jakarta_Sans']">
+          {alternative.data.title}
+        </h1>
+        <p class="mt-4 text-base leading-relaxed text-slate-600 sm:text-lg">
+          Detailed side-by-side comparison, technical capabilities, and evaluation for <strong class="text-slate-900">{alternative.data.target_keyword}</strong>.
+        </p>
+      </div>
+    </div>
+  </header>
+
+  <main class="mx-auto max-w-6xl px-4 py-12 sm:px-6 space-y-16">
+    
+    <!-- Compared Companies Cards -->
+    <section>
+      <div class="border-b border-slate-200 pb-4">
+        <h2 class="text-2xl font-bold tracking-tight text-slate-900 font-['Plus_Jakarta_Sans']">
+          Evaluated Platforms & Alternative Options
+        </h2>
+        <p class="text-sm text-slate-500 mt-0.5">Explore the platforms evaluated in this comparison</p>
+      </div>
+
+      <div class="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {validCompanies.map((company) => {
+          const initials = company.data.name.slice(0, 2).toUpperCase();
+          return (
+            <article class="flex flex-col justify-between rounded-2xl border border-slate-200 bg-white p-6 shadow-xs hover:border-emerald-300 hover:shadow-md transition">
+              <div>
+                <div class="flex items-start justify-between gap-3">
+                  <div class="flex items-center gap-3.5">
+                    <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-slate-100 bg-slate-50 p-2 shadow-2xs">
+                      <img
+                        src={company.logoUrl}
+                        alt={`${company.data.name} logo`}
+                        loading="lazy"
+                        decoding="async"
+                        width="32"
+                        height="32"
+                        class="h-7 w-7 object-contain rounded"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                      />
+                      <span class="hidden h-7 w-7 items-center justify-center font-bold text-xs text-slate-700">
+                        {initials}
+                      </span>
+                    </div>
+                    <div>
+                      <h3 class="text-base font-bold text-slate-900 hover:text-emerald-600 transition font-['Plus_Jakarta_Sans']">
+                        <a href={`/companies/${company.id}`}>{company.data.name}</a>
+                      </h3>
+                      <span class="text-xs text-slate-500">{company.data.headquarters} &bull; Founded {company.data.founded_year}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="mt-4 pt-3 border-t border-slate-100">
+                  <span class="inline-flex items-center rounded-md bg-emerald-50 px-2.5 py-0.5 text-xs font-semibold text-emerald-800">
+                    {company.meta.tag}
+                  </span>
+                  <p class="mt-2 text-xs text-slate-600 leading-relaxed">
+                    {company.meta.specialty}
+                  </p>
+                </div>
+              </div>
+
+              <div class="mt-6 flex items-center justify-between border-t border-slate-100 pt-4">
+                <a
+                  href={`/companies/${company.id}`}
+                  class="text-xs font-semibold text-emerald-600 hover:text-emerald-800 transition"
+                >
+                  View Profile &rarr;
+                </a>
+                <span class="text-xs text-slate-400">
+                  {company.domain}
+                </span>
+              </div>
+            </article>
+          );
+        })}
+      </div>
+    </section>
+
+    <!-- Side-by-Side Comparison Matrix Table -->
+    <section class="rounded-2xl border border-slate-200 bg-white p-8 shadow-xs">
+      <h2 class="text-xl font-bold text-slate-900 font-['Plus_Jakarta_Sans']">
+        Side-by-Side Comparison Table
+      </h2>
+      <p class="mt-1 text-xs text-slate-500">Key architectural and protocol details compared across vendors in this guide</p>
+
+      <div class="mt-6 overflow-x-auto">
+        <table class="w-full text-left text-sm text-slate-600">
+          <thead class="border-b border-slate-200 bg-slate-50 text-slate-900">
+            <tr>
+              <th class="py-3 px-4 font-semibold">Vendor</th>
+              <th class="py-3 px-4 font-semibold">Specialty</th>
+              <th class="py-3 px-4 font-semibold">Headquarters</th>
+              <th class="py-3 px-4 font-semibold">Founded</th>
+              <th class="py-3 px-4 font-semibold">Protocol Support</th>
+              <th class="py-3 px-4 font-semibold text-right">Details</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100">
+            {validCompanies.map((c) => (
+              <tr class="hover:bg-slate-50/70 transition">
+                <td class="py-3.5 px-4 font-bold text-slate-900 flex items-center gap-2.5">
+                  <img
+                    src={c.logoUrl}
+                    alt={`${c.data.name} logo`}
+                    loading="lazy"
+                    decoding="async"
+                    width="20"
+                    height="20"
+                    class="h-5 w-5 object-contain rounded"
+                    onerror="this.style.display='none';"
+                  />
+                  <a href={`/companies/${c.id}`} class="hover:text-emerald-600 transition">
+                    {c.data.name}
+                  </a>
+                </td>
+                <td class="py-3.5 px-4 text-xs font-medium text-slate-700">{c.meta.tag}</td>
+                <td class="py-3.5 px-4 text-xs">{c.data.headquarters}</td>
+                <td class="py-3.5 px-4 text-xs">{c.data.founded_year}</td>
+                <td class="py-3.5 px-4 text-xs">OCPP 1.6J / 2.0.1</td>
+                <td class="py-3.5 px-4 text-right">
+                  <a href={`/companies/${c.id}`} class="font-semibold text-xs text-emerald-600 hover:text-emerald-800">
+                    Profile &rarr;
+                  </a>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Buyer Considerations -->
+    <section class="rounded-2xl border border-slate-200 bg-slate-50/70 p-8">
+      <h3 class="text-lg font-bold text-slate-900 font-['Plus_Jakarta_Sans']">
+        Key Considerations When Evaluating These Options
+      </h3>
+      <div class="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-3 text-xs leading-relaxed text-slate-600">
+        <div class="rounded-xl border border-slate-200 bg-white p-5 shadow-2xs">
+          <strong class="text-slate-900 block font-semibold mb-1 text-sm">Charger Independence</strong>
+          Confirm full OCPP support so you can freely mix and match Level 2 and DC Fast chargers from multiple hardware brands.
+        </div>
+        <div class="rounded-xl border border-slate-200 bg-white p-5 shadow-2xs">
+          <strong class="text-slate-900 block font-semibold mb-1 text-sm">Demand Management</strong>
+          Verify that smart load balancing can schedule charging during off-peak hours and avoid costly utility demand spikes.
+        </div>
+        <div class="rounded-xl border border-slate-200 bg-white p-5 shadow-2xs">
+          <strong class="text-slate-900 block font-semibold mb-1 text-sm">Telematics Readiness</strong>
+          Check for integration with vehicle telematics to pull live battery state-of-charge before morning dispatch.
+        </div>
+      </div>
+    </section>
+
+  </main>
+  </div>
+</Layout>

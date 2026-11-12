@@ -1,0 +1,87 @@
+{
+  "name": "Ampeco",
+  "website_url": "https://www.ampeco.com",
+  "founded_year": 2018,
+  "headquarters": "Sofia, Bulgaria",
+  "category": "white-label-cpms-roaming",
+  "tagline": "Global White-Label EV Charging Management System (CPMS) & Fleet Energy Platform",
+  "overview": "Ampeco is a globally recognized, hardware-agnostic white-label Charge Point Management System (CPMS) built for enterprise fleet operators, energy utilities, and charge point operators (CPOs). Founded in 2018 in Sofia, Bulgaria by Orlin Radev, Stefan Ivanov, and Alexander Alexiev, Ampeco powers over 200,000 charging points across more than 70 markets globally. The platform provides complete brand ownership, custom mobile apps, intelligent depot load balancing, automated multi-currency billing, and an API-first developer architecture.",
+  "key_features": [
+    {
+      "title": "Complete White-Label Customization",
+      "description": "Enables enterprise operators to deploy driver mobile apps (iOS & Android) and web portals completely branded under their own corporate identity, colors, and domains."
+    },
+    {
+      "title": "Dynamic Depot Load Management",
+      "description": "Monitors grid capacity in real time and automatically throttles active charging stations to prevent electrical overloads and slash utility peak demand charges."
+    },
+    {
+      "title": "B2B Fleet Portals & Driver Controls",
+      "description": "Provides dedicated self-service portals for fleet managers and subcontractors to set charging schedules, assign RFID cards, and track vehicle energy consumption by cost center."
+    },
+    {
+      "title": "Global OCPI Roaming & Billing",
+      "description": "Native integration with major roaming hubs (Hubject, Gireve) and over 40+ international payment gateways, supporting multi-currency and multi-jurisdiction VAT compliance."
+    },
+    {
+      "title": "API-First Architecture & Developer Hub",
+      "description": "Comprehensive REST APIs and webhooks that allow enterprise IT teams to integrate charging data seamlessly with SAP, Salesforce, ERPs, and fleet telematics."
+    }
+  ],
+  "protocols": [
+    "OCPP 1.6J",
+    "OCPP 2.0.1",
+    "OCPI 2.2.1 (Roaming)",
+    "ISO 15118 (Plug & Charge)",
+    "OpenADR 2.0b",
+    "REST APIs & Webhooks"
+  ],
+  "ideal_for": [
+    "Enterprise Commercial Fleets & Logistics Operators",
+    "Energy Utilities & Oil & Gas Conglomerates",
+    "Global Charge Point Operators (CPOs)",
+    "Shared Commercial Depots & Transit Hubs",
+    "Multinational Corporations Requiring Branded Portals"
+  ],
+  "hardware_compatibility": "Hardware-agnostic with verified support for over 150+ OCPP charger manufacturers, including ABB, Alfen, Circontrol, Delta, Kempower, Schneider Electric, and Tritium.",
+  "telematics_integrations": [
+    "Geotab",
+    "Samsara",
+    "Webfleet",
+    "Custom Fleet Systems via Open REST API"
+  ],
+  "pricing_model": "Enterprise SaaS subscription scaled by active connected charge points, with white-label mobile app development and dedicated SLA tiers.",
+  "pros": [
+    "True white-label solution: clients retain 100% brand ownership, customer relationships, and data",
+    "Proven global scale operating across 70+ countries with robust multi-currency billing",
+    "Advanced energy management with dynamic load balancing and building management system (BMS) integration",
+    "Superior API-first architecture enabling full customization by enterprise software developers",
+    "Broad hardware compatibility with 150+ certified OCPP charger models"
+  ],
+  "considerations": [
+    "Tailored for enterprise networks and large fleets; not suited for small single-depot operations seeking simple out-of-the-box software",
+    "White-label mobile app publishing requires corporate developer accounts on Apple App Store and Google Play"
+  ],
+  "faqs": [
+    {
+      "question": "What is Ampeco and who is it built for?",
+      "answer": "Ampeco is an enterprise-grade white-label Charge Point Management System (CPMS) that allows businesses, fleet operators, and energy companies to manage, monitor, and monetize EV charging networks under their own brand."
+    },
+    {
+      "question": "What does 'white-label' mean in EV charging software?",
+      "answer": "White-label means that Ampeco provides the underlying charging technology, but the mobile apps, web dashboards, and driver portals are branded with your company's logo, colors, and domain name. Your drivers and clients never see Ampeco's branding."
+    },
+    {
+      "question": "How does Ampeco manage electrical load at commercial fleet depots?",
+      "answer": "Ampeco's dynamic load management continuously tracks the depot's electrical capacity. As more vehicles plug in, the software distributes available kilowatts evenly or prioritizes vehicles based on scheduled departure times, preventing substation overloads and peak demand charges."
+    },
+    {
+      "question": "Does Ampeco support public roaming for commercial fleet drivers?",
+      "answer": "Yes. Ampeco supports the Open Charge Point Interface (OCPI) protocol and connects to roaming hubs like Hubject and Gireve, allowing commercial drivers to charge at hundreds of thousands of public charging stations with a single company RFID card or app."
+    },
+    {
+      "question": "Which EV charging stations work with Ampeco?",
+      "answer": "Ampeco works with any OCPP 1.6J or 2.0.1 compliant charger, with over 150 manufacturers pre-integrated, including ABB, Alfen, Delta, Kempower, Schneider Electric, and Tritium."
+    }
+  ]
+}

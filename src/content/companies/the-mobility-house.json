@@ -1,0 +1,83 @@
+{
+  "name": "The Mobility House",
+  "website_url": "https://www.mobilityhouse.com",
+  "founded_year": 2009,
+  "headquarters": "Munich, Germany",
+  "category": "ev-fleet-charging-software",
+  "tagline": "Hardware-Agnostic Smart Depot Charging, Dynamic Local Energy Management & V2G",
+  "overview": "The Mobility House is a leading European and North American technology company delivering intelligent commercial EV charging and energy management software. Founded in 2009 in Munich by Thomas Raffeiner, The Mobility House created ChargePilot, a hardware-agnostic charging and energy management system operating across over 1,700 depot and commercial charging sites. ChargePilot utilizes a unique hybrid architecture combining an on-site local controller with a cloud management dashboard. This architecture guarantees that local dynamic load balancing, peak shaving, and scheduled vehicle charging continue uninterrupted even during internet connectivity outages.",
+  "key_features": [
+    {
+      "title": "ChargePilot Hybrid Local & Cloud Architecture",
+      "description": "Deploys a ruggedized on-site industrial controller managing real-time dynamic load balancing locally within sub-second intervals, ensuring continuous charging even during internet disconnects."
+    },
+    {
+      "title": "Dynamic Peak Shaving & Time-of-Use Optimization",
+      "description": "Continuously measures total facility building power and dynamically modulates EV charging output to keep total depot consumption strictly below utility penalty thresholds."
+    },
+    {
+      "title": "Hardware-Agnostic with 130+ Benchmarked Models",
+      "description": "Supports OCPP 1.6J and OCPP 2.0.1 certified hardware from over 130 EVSE manufacturers, eliminating hardware vendor lock-in for enterprise fleet operators."
+    },
+    {
+      "title": "Vehicle-to-Grid (V2G) & Bidirectional Energy Integration",
+      "description": "Pioneered commercial bidirectional vehicle-to-grid (V2G) and vehicle-to-building (V2B) projects, allowing electric school buses and commercial fleets to earn grid revenue."
+    },
+    {
+      "title": "Depot Telematics & Dispatch Synchronization",
+      "description": "Integrates via REST APIs with fleet telematics and depot planning systems to ingest vehicle battery SoC and prioritize charging based on morning departure schedules."
+    }
+  ],
+  "protocols": [
+    "OCPP 1.6J",
+    "OCPP 2.0.1",
+    "ISO 15118 (Plug & Charge and Bidirectional)",
+    "OpenADR 2.0b (Automated Demand Response)",
+    "Modbus TCP / RTU"
+  ],
+  "ideal_for": [
+    "Commercial Electric School Bus Fleets and Transit Agencies",
+    "High-Density Commercial Delivery and Logistics Depots",
+    "Facilities with Limited Grid Connection Capacity Requiring Peak Shaving",
+    "Fleets Requiring Fail-Safe Offline Charging Operation",
+    "Enterprise Operators Pursuing Bidirectional V2G Revenue Opportunities"
+  ],
+  "hardware_compatibility": "Hardware-agnostic platform supporting over 130+ verified OCPP AC and DC charger models from ABB, ChargePoint, Eaton, Kempower, Power Electronics, Siemens, Tritium, and Wallbox.",
+  "telematics_integrations": [
+    "Geotab",
+    "Samsara",
+    "Fleetio",
+    "Direct OEM Telematics APIs via REST"
+  ],
+  "pricing_model": "One-time hardware purchase for the local ChargePilot Controller coupled with an annual software-as-a-service (SaaS) subscription per connected charging port.",
+  "pros": [
+    "Hybrid on-site controller ensures load balancing operates with 100% reliability even if cloud connection drops",
+    "Proven track record managing major municipal bus transit and school district electrification projects",
+    "Advanced sub-metering and building integration via Modbus TCP prevents site electrical breaker trips",
+    "Global leadership in bidirectional Vehicle-to-Grid (V2G) commercial deployments",
+    "Completely hardware-agnostic preventing expensive vendor lock-in"
+  ],
+  "considerations": [
+    "Requires installation of a compact physical controller inside the depot electrical distribution panel",
+    "Specialized focus on depot charging rather than public driver app management"
+  ],
+  "faqs": [
+    {
+      "question": "What is ChargePilot by The Mobility House?",
+      "answer": "ChargePilot is a hardware-agnostic charging and energy management system designed for commercial fleet depots. It dynamically distributes electrical power to prevent utility peak demand charges and ensures electric commercial vehicles are charged before scheduled departure."
+    },
+    {
+      "question": "Why is the hybrid local controller important for commercial depots?",
+      "answer": "Most cloud-only software platforms stop dynamic load balancing if the depot loses its internet connection, risking electrical breaker trips or uncharged vehicles. ChargePilot runs its algorithms locally on an industrial hardware controller, ensuring uninterrupted depot charging and load control 24/7."
+    },
+    {
+      "question": "Does The Mobility House support Vehicle-to-Grid (V2G)?",
+      "answer": "Yes. The Mobility House is an industry pioneer in bidirectional charging, managing commercial V2G projects where electric school buses and delivery fleets feed power back into the electrical grid during peak hours to generate revenue for operators."
+    },
+    {
+      "question": "Can ChargePilot manage charging alongside depot building electrical loads?",
+      "answer": "Yes. ChargePilot integrates directly with depot main building meters via Modbus protocols. When building power consumption spikes (e.g., HVAC or refrigeration), ChargePilot automatically throttles vehicle charging down to avoid exceeding peak demand thresholds."
+    }
+  ]
+}
+

@@ -1,0 +1,86 @@
+{
+  "name": "Epic Charging",
+  "website_url": "https://epiccharging.com",
+  "founded_year": 2021,
+  "headquarters": "Menlo Park, California, USA",
+  "category": "ev-fleet-charging-software",
+  "tagline": "Cloud-Native EV Fleet Depot Management & Take-Home Reimbursement Platform",
+  "overview": "Epic Charging is a modern, cloud-native EV charging management software platform built specifically for commercial fleets, municipal operations, and multi-tenant depots. Founded in 2021 by electric mobility veterans from ChargePoint and Nissan, Epic Charging provides an intuitive single-pane-of-glass dashboard for monitoring charger uptime, executing automated load balancing, managing take-home employee vehicle charging reimbursement, and processing multi-fleet billing.",
+  "key_features": [
+    {
+      "title": "Smart Depot Load Management",
+      "description": "Dynamically throttles and schedules energy delivery across active chargers to ensure commercial vehicles are ready for dispatch without exceeding site utility power limits."
+    },
+    {
+      "title": "Take-Home Fleet Reimbursement",
+      "description": "Automates tracking, utility rate calculation, and expense reimbursement for commercial drivers charging take-home fleet vehicles at their personal residences."
+    },
+    {
+      "title": "Remote Diagnostics & Auto-Healing",
+      "description": "Continuously monitors OCPP heartbeats, automatically detects fault codes, triggers soft resets, and alerts technicians before vehicle routes are impacted."
+    },
+    {
+      "title": "Multi-Tenant Fleet Billing",
+      "description": "Allows shared commercial depots to separate billing, assign custom electricity tariffs, and generate automated invoices for different fleet departments or subcontracted carriers."
+    },
+    {
+      "title": "Access Control & Driver Authentication",
+      "description": "Supports seamless vehicle authorization via RFID cards, mobile apps, QR codes, and automated vehicle identification (Autocharge / ISO 15118)."
+    }
+  ],
+  "protocols": [
+    "OCPP 1.6J",
+    "OCPP 2.0.1",
+    "OCPI 2.2 (Roaming)",
+    "OpenADR 2.0b",
+    "REST API"
+  ],
+  "ideal_for": [
+    "Commercial Service & Utility Fleets",
+    "Take-Home Commercial Van Programs",
+    "Municipal & Government Fleet Depots",
+    "Multi-Tenant Shared Commercial Real Estate",
+    "Corporate Campus EV Fleets"
+  ],
+  "hardware_compatibility": "100% hardware-agnostic. Pre-integrated and certified with over 50+ OCPP charger models including ABB, Autel, BTC Power, ChargePoint, Delta, Enel X, Grizzl-E, Siemens, and Wallbox.",
+  "telematics_integrations": [
+    "Geotab",
+    "Samsara",
+    "Fleetio",
+    "Custom Telematics via Webhooks"
+  ],
+  "pricing_model": "Predictable monthly or annual SaaS subscription per connected charging port, with tiered enterprise depot pricing.",
+  "pros": [
+    "Modern, intuitive UI engineered by electric mobility veterans",
+    "Built-in employee home charging reimbursement tracking for take-home fleet programs",
+    "Extensive hardware library supporting 50+ certified OCPP charger models",
+    "Automated fault detection and remote charger healing reduces on-site maintenance visits",
+    "Fast depot deployment with pre-configured charger onboarding templates"
+  ],
+  "considerations": [
+    "Younger startup compared to multi-decade telematics providers",
+    "Primary market focus is currently North America and select international deployments"
+  ],
+  "faqs": [
+    {
+      "question": "What is Epic Charging and who is it designed for?",
+      "answer": "Epic Charging is a cloud-based EV fleet charging and energy management software platform designed for commercial fleets, municipalities, and multi-tenant depot operators who need an intuitive, hardware-agnostic solution for depot charging, load management, and driver reimbursement."
+    },
+    {
+      "question": "How does Epic Charging solve take-home fleet charging reimbursement?",
+      "answer": "Epic Charging connects to compatible home chargers used by fleet drivers, tracks kilowatt-hours consumed exclusively by company vehicles, matches usage against local utility electricity rates, and automatically generates audit-ready reimbursement reports."
+    },
+    {
+      "question": "Does Epic Charging work with any EV charger brand?",
+      "answer": "Yes. Epic Charging is built entirely on open standards (OCPP 1.6J and 2.0.1) and is pre-tested with over 50 charger hardware manufacturers, preventing costly hardware vendor lock-in."
+    },
+    {
+      "question": "Can multiple fleets share a single charging facility with Epic Charging?",
+      "answer": "Yes. Epic Charging includes multi-tenant fleet billing, enabling multiple companies, departments, or contractors to share depot charging stations while receiving separate, automated electricity usage invoices."
+    },
+    {
+      "question": "How does Epic Charging integrate with telematics platforms like Geotab and Samsara?",
+      "answer": "Epic Charging integrates via secure APIs to ingest vehicle odometer readings, battery State of Charge (SoC), and dispatch schedules, ensuring charging is timed to meet route demands."
+    }
+  ]
+}

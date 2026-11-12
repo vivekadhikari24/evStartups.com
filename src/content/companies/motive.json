@@ -1,0 +1,81 @@
+{
+  "name": "Motive",
+  "website_url": "https://gomotive.com",
+  "founded_year": 2013,
+  "headquarters": "San Francisco, California",
+  "category": "fleet-telematics-diagnostics",
+  "tagline": "AI-Powered Fleet Operations, Vehicle Telematics & Commercial EV Fleet Management",
+  "overview": "Motive (formerly KeepTruckin) is an enterprise fleet operations and telematics platform connecting over 120,000 businesses across logistics, construction, field services, and passenger transit. Founded in 2013 in San Francisco by Shoaib Makani, Obaid Khan, and Ryan Johns, Motive provides unified IoT hardware and cloud software covering GPS tracking, AI dashcam safety, maintenance diagnostics, and commercial electric vehicle management. Motive's EV platform captures high-frequency battery state-of-charge (SoC), evaluates real-world commercial range under actual operating conditions, and identifies internal combustion engine vehicles best suited for electric replacement.",
+  "key_features": [
+    {
+      "title": "Real-Time EV Battery State of Charge (SoC) Monitoring",
+      "description": "Continuous high-frequency tracking of vehicle battery percentages and charging status via direct CAN bus integration, delivering low-battery threshold alerts to dispatchers."
+    },
+    {
+      "title": "EV Suitability Assessment & Electrification Modeling",
+      "description": "Analyzes historical route distance, payload weight, ambient temperature patterns, and dwell time across diesel/gas vehicles to recommend optimal EV replacements."
+    },
+    {
+      "title": "Predictive Range & Energy Consumption Analytics",
+      "description": "Evaluates driver behavior, highway speeds, topography, and seasonal weather impacts on kilowatt-hour per mile consumption to forecast route viability."
+    },
+    {
+      "title": "Unified Operations: Safety, Telematics & Maintenance",
+      "description": "Combines EV diagnostics with AI-powered dashcam driver safety, automated hours of service (HOS) compliance, and preventive maintenance scheduling on a single dashboard."
+    },
+    {
+      "title": "Depot & Charging API Connectivity",
+      "description": "Passes real-time vehicle battery status and diagnostic trouble codes to depot energy management software and commercial dispatch platforms via REST APIs."
+    }
+  ],
+  "protocols": [
+    "OBD-II / J1939 / CAN Bus Telematics",
+    "REST APIs & Webhooks",
+    "Cellular IoT Telemetry (4G LTE / 5G Ready)"
+  ],
+  "ideal_for": [
+    "Commercial Mixed Fleets Operating Both EVs and ICE Vehicles",
+    "Last-Mile Delivery and Parcel Couriers",
+    "Field Service, Construction, and Trade Contractors",
+    "Regional Freight and Distribution Carriers",
+    "Fleet Operators Prioritizing Driver Safety and Video Telematics"
+  ],
+  "hardware_compatibility": "Hardware-agnostic vehicle gateway connecting to commercial Class 1-8 vehicles via OBD-II, J1939, and custom heavy-duty electric vehicle harness connectors.",
+  "telematics_integrations": [
+    "Motive Vehicle Gateway (Native)",
+    "Motive AI Omnicam & Dashcam",
+    "Fleetio",
+    "Major Transport Management Systems (TMS)"
+  ],
+  "pricing_model": "Monthly or annual subscription per vehicle gateway with tiered software packages covering basic telematics, driver safety, and advanced EV operations.",
+  "pros": [
+    "Unified platform managing mixed fleets with both traditional ICE vehicles and electric commercial trucks",
+    "Industry-leading AI dashcam safety scoring and automated driver coaching alongside EV tracking",
+    "Intuitive fleet manager web dashboard and driver-facing mobile application",
+    "Comprehensive EV Suitability Assessment tools based on real fleet operating history",
+    "Rapid hardware installation with plug-and-play vehicle gateway harnesses"
+  ],
+  "considerations": [
+    "Requires installation of Motive Vehicle Gateway hardware inside the vehicle cab",
+    "Depot charging power orchestration requires integration with external CPMS software"
+  ],
+  "faqs": [
+    {
+      "question": "What does Motive provide for commercial electric vehicle fleets?",
+      "answer": "Motive provides vehicle telematics, real-time battery state of charge (SoC) tracking, predictive range calculations, and electrification planning tools. It enables fleet dispatchers to monitor electric vans and trucks on the road while managing driver safety and compliance from a single dashboard."
+    },
+    {
+      "question": "How does Motive's EV Suitability Assessment work?",
+      "answer": "Motive analyzes daily mileage, dwell times, and energy demands of a fleet's existing internal combustion engine (ICE) vehicles. The platform automatically identifies which routes and duty cycles can transition to electric vehicles today without operational disruption or range risks."
+    },
+    {
+      "question": "Does Motive work with heavy-duty commercial electric trucks?",
+      "answer": "Yes. Motive's vehicle gateways support heavy-duty Class 7 and Class 8 electric commercial trucks using standard J1939 protocols and custom EV manufacturer telemetry interfaces."
+    },
+    {
+      "question": "Can Motive share battery data with depot charging management software?",
+      "answer": "Yes. Motive provides REST APIs and webhooks that export real-time battery SoC and vehicle odometer readings directly into depot charging management software to schedule charging before vehicle dispatch."
+    }
+  ]
+}
+

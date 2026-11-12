@@ -1,0 +1,81 @@
+{
+  "name": "Webfleet",
+  "website_url": "https://www.webfleet.com",
+  "founded_year": 1999,
+  "headquarters": "Amsterdam, Netherlands",
+  "category": "fleet-telematics-diagnostics",
+  "tagline": "Enterprise Commercial Vehicle Telematics, EV Battery Diagnostics & Fleet Management",
+  "overview": "Webfleet (a Bridgestone company) is a globally recognized commercial vehicle telematics and fleet management platform serving over 60,000 corporate customers and tracking more than 800,000 connected vehicles. Founded in 1999 in Amsterdam (originally as TomTom Telematics), Webfleet provides specialized commercial electric vehicle management capabilities. The platform connects directly with vehicle CAN bus systems to capture high-frequency battery state of charge (SoC), monitor battery temperature and degradation, calculate real-world remaining range accounting for topography and payload, and automate EV fleet transition planning.",
+  "key_features": [
+    {
+      "title": "Real-Time EV Battery State of Charge (SoC) Monitoring",
+      "description": "Continuous high-frequency tracking of commercial battery percentage, remaining charging time, and low-charge alerts directly on the fleet dispatcher map."
+    },
+    {
+      "title": "EV Routing & Temperature-Adjusted Range Calculation",
+      "description": "Calculates realistic commercial driving range taking into account live vehicle payload weight, driving behavior, elevation changes, and ambient weather temperatures."
+    },
+    {
+      "title": "Fleet Electrification Transition Planning Tools",
+      "description": "Evaluates historical trip distances, daily dwell times, and fuel consumption across internal combustion vehicles to determine exact models suitable for electric replacement."
+    },
+    {
+      "title": "Charger Station Finder & En-Route Compatibility",
+      "description": "Integrated navigation guiding commercial drivers to certified, compatible commercial charging hubs when en-route fast charging is required during long shifts."
+    },
+    {
+      "title": "Open Telematics REST APIs & CPMS Synchronization",
+      "description": "Exports live vehicle battery data, diagnostic trouble codes (DTCs), and scheduled return times to depot charging management systems via secure cloud APIs."
+    }
+  ],
+  "protocols": [
+    "OBD-II / CAN Bus / FMS Telematics",
+    "REST APIs & Webhooks",
+    "ISO 11992 (Commercial Vehicle Communication)"
+  ],
+  "ideal_for": [
+    "European and International Commercial Fleets",
+    "Mixed Fleets Transitioning from Diesel to Electric Vans and Trucks",
+    "Last-Mile Couriers and Express Delivery Operators",
+    "Passenger Transit and Commercial Taxi Fleets",
+    "Fleet Managers Requiring Deep Tire and Diagnostic Telematics"
+  ],
+  "hardware_compatibility": "Webfleet LINK onboard tracking units connecting via OBD-II, standard CAN bus, and commercial vehicle Fleet Management System (FMS) interfaces.",
+  "telematics_integrations": [
+    "Webfleet PRO Driver Terminals",
+    "Monta Connect",
+    "Fleetio",
+    "Enterprise Transport Management Systems (TMS)"
+  ],
+  "pricing_model": "Monthly SaaS subscription per tracked vehicle with tiered service editions (ECO, NAV, and LIVE) covering basic vehicle tracking, navigation, and advanced EV analytics.",
+  "pros": [
+    "Over two decades of proven enterprise commercial telematics experience backed by Bridgestone",
+    "Extensive native support for European and international light and medium commercial electric vehicles",
+    "Sophisticated range forecasting factoring in live ambient temperature and route elevation",
+    "Comprehensive driver coaching tools improving regenerative braking and kilowatt-hour efficiency",
+    "Integrated professional in-cab driver navigation terminals"
+  ],
+  "considerations": [
+    "Hardware installation required across all vehicles in the commercial fleet",
+    "Depot charging load balancing requires connection with third-party CPMS software"
+  ],
+  "faqs": [
+    {
+      "question": "What does Webfleet provide for commercial electric vehicle fleets?",
+      "answer": "Webfleet provides real-time battery monitoring, remaining driving range calculations, charging status tracking, and fleet electrification planning. It allows dispatchers to monitor electric delivery vans and trucks alongside traditional diesel vehicles on a single dashboard."
+    },
+    {
+      "question": "How does Webfleet forecast electric vehicle range?",
+      "answer": "Rather than relying on basic dashboard estimates, Webfleet combines real-time battery SoC with historical driving efficiency, payload weight, terrain topography, and current weather temperature to provide dispatchers with accurate remaining range."
+    },
+    {
+      "question": "Can Webfleet data connect to depot charging software?",
+      "answer": "Yes. Webfleet provides robust REST APIs that stream real-time vehicle battery SoC directly into depot charging management systems (like Monta or Ampcontrol) to automatically prioritize charging for vehicles scheduled for early morning routes."
+    },
+    {
+      "question": "Does Webfleet help commercial fleets assess whether to buy electric vehicles?",
+      "answer": "Yes. Webfleet's Electrification Report analyzes the daily operational data of a fleet's existing combustion engine vehicles to identify which routes can be successfully electrified today without risking operational disruptions."
+    }
+  ]
+}
+

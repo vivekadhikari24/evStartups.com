@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "dombot": {
+      "command": "/Applications/DomBot.app/Contents/MacOS/DomBot",
+      "args": [
+        "--mcp-stdio"
+      ]
+    }
+  }
+}

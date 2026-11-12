@@ -1,0 +1,292 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection, type CollectionEntry } from 'astro:content';
+import { getCompanyMeta, getCompanyDomain, getCompanyLogoUrl } from '../../utils/companyMeta';
+
+export async function getStaticPaths() {
+  const categories = await getCollection('categories');
+  const companies = await getCollection('companies');
+  const alternatives = await getCollection('alternatives');
+  
+  return categories.map((category) => {
+    const mappedCompanies = companies.filter((c) => c.data.category.id === category.id);
+    const mappedCompanyIds = new Set(mappedCompanies.map((c) => c.id));
+    
+    const relatedAlternatives = alternatives.filter((alt) =>
+      alt.data.related_companies.some((ref) => mappedCompanyIds.has(ref.id))
+    );
+
+    return {
+      params: { slug: category.id },
+      props: {
+        category,
+        companies: mappedCompanies,
+        alternatives: relatedAlternatives,
+      },
+    };
+  });
+}
+
+interface Props {
+  category: CollectionEntry<'categories'>;
+  companies: CollectionEntry<'companies'>[];
+  alternatives: CollectionEntry<'alternatives'>[];
+}
+
+const { category, companies, alternatives } = Astro.props;
+
+const enrichedCompanies = companies.map((c) => {
+  const domain = getCompanyDomain(c.data.website_url, c.id);
+  const logoUrl = getCompanyLogoUrl(c.data.website_url, c.id, 128);
+  const meta = getCompanyMeta(c.id, c.data.tagline);
+  return {
+    ...c,
+    domain,
+    logoUrl,
+    meta,
+  };
+});
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Home',
+      item: 'https://www.evstartups.com',
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Categories',
+      item: 'https://www.evstartups.com/categories',
+    },
+    {
+      '@type': 'ListItem',
+      position: 3,
+      name: category.data.title,
+      item: `https://www.evstartups.com/categories/${category.id}`,
+    },
+  ],
+};
+
+const collectionSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: category.data.title,
+  description: category.data.description,
+  url: `https://www.evstartups.com/categories/${category.id}`,
+};
+
+const jsonLd = [breadcrumbSchema, collectionSchema];
+---
+
+<Layout
+  title={category.data.seo_title || `${category.data.title} | EV Fleet Software`}
+  description={category.data.description}
+  jsonLd={jsonLd}
+>
+  <div class="bg-slate-50 min-h-screen pb-20">
+    <!-- Clean Header -->
+    <header class="border-b border-slate-200/80 bg-white py-14 sm:py-16">
+      <div class="mx-auto max-w-6xl px-4 sm:px-6">
+        <nav class="flex items-center gap-2 text-xs font-medium text-slate-500 mb-4">
+          <a href="/" class="hover:text-slate-900 transition">Home</a>
+          <span>/</span>
+          <a href="/categories" class="hover:text-slate-900 transition">Categories</a>
+          <span>/</span>
+          <span class="text-slate-900 font-semibold">{category.data.title}</span>
+        </nav>
+
+        <div class="max-w-3xl">
+          <h1 class="text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl lg:text-5xl font-['Plus_Jakarta_Sans']">
+            {category.data.title}
+          </h1>
+          <p class="mt-4 text-base leading-relaxed text-slate-600 sm:text-lg">
+            {category.data.description}
+          </p>
+
+          <!-- Useful highlights -->
+          <div class="mt-6 flex flex-wrap gap-2 text-xs">
+            <span class="inline-flex items-center rounded-md bg-emerald-50 border border-emerald-200 px-3 py-1 font-semibold text-emerald-800">
+              Active Silo
+            </span>
+            <span class="inline-flex items-center rounded-md bg-white border border-slate-200 px-3 py-1 font-medium text-slate-700">
+              OCPP 1.6J / 2.0.1 Ready
+            </span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6 space-y-16">
+      
+      <!-- Mapped Companies Cards -->
+      <section>
+        <div class="flex items-center justify-between border-b border-slate-200 pb-4">
+          <div>
+            <h2 class="text-2xl font-bold tracking-tight text-slate-900 font-['Plus_Jakarta_Sans']">
+              Verified Platform Profiles
+            </h2>
+            <p class="text-sm text-slate-500 mt-0.5">Explore profiles and technical details of platforms providing {category.data.title.toLowerCase()}</p>
+          </div>
+        </div>
+
+        {enrichedCompanies.length > 0 ? (
+          <div class="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {enrichedCompanies.map((company) => {
+              const initials = company.data.name.slice(0, 2).toUpperCase();
+              return (
+                <article class="flex flex-col justify-between rounded-xl border border-slate-200 bg-white p-6 shadow-xs hover:border-emerald-500 hover:shadow-md transition">
+                  <div>
+                    <div class="flex items-start justify-between gap-3">
+                      <div class="flex items-center gap-3.5">
+                        <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-slate-100 bg-slate-50 p-2 shadow-2xs">
+                          <img
+                            src={company.logoUrl}
+                            alt={`${company.data.name} logo`}
+                            loading="lazy"
+                            decoding="async"
+                            width="32"
+                            height="32"
+                            class="h-7 w-7 object-contain rounded"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                          />
+                          <span class="hidden h-7 w-7 items-center justify-center font-bold text-xs text-slate-700">
+                            {initials}
+                          </span>
+                        </div>
+                        <div>
+                          <h3 class="text-base font-bold text-slate-900 hover:text-emerald-600 transition font-['Plus_Jakarta_Sans']">
+                            <a href={`/companies/${company.id}`}>{company.data.name}</a>
+                          </h3>
+                          <span class="text-xs text-slate-500">
+                            {company.data.headquarters} &bull; Founded {company.data.founded_year}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="mt-4 pt-3 border-t border-slate-100">
+                      <span class="inline-flex items-center rounded-md bg-emerald-50 px-2 py-0.5 text-xs font-semibold text-emerald-800">
+                        {company.meta.tag}
+                      </span>
+                      <p class="mt-2 text-xs text-slate-600 leading-relaxed">
+                        {company.meta.specialty}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="mt-6 flex items-center justify-between border-t border-slate-100 pt-4">
+                    <a
+                      href={`/companies/${company.id}`}
+                      class="text-xs font-semibold text-emerald-600 hover:text-emerald-800 transition"
+                    >
+                      View Technical Profile &rarr;
+                    </a>
+                    <span class="text-xs text-slate-400">
+                      {company.domain}
+                    </span>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        ) : (
+        <p class="mt-4 text-sm text-slate-500 italic">No companies listed in this category yet.</p>
+      )}
+    </section>
+
+    <!-- Side-by-Side Comparison Table -->
+    {enrichedCompanies.length > 0 && (
+      <section class="rounded-2xl border border-slate-200 bg-white p-8 shadow-xs">
+        <h2 class="text-xl font-bold text-slate-900 font-['Plus_Jakarta_Sans']">
+          Compare Companies in {category.data.title}
+        </h2>
+        <p class="mt-1 text-xs text-slate-500">Quick side-by-side breakdown of headquarters, protocol readiness, and founding date</p>
+
+        <div class="mt-6 overflow-x-auto">
+          <table class="w-full text-left text-sm text-slate-600">
+            <thead class="border-b border-slate-200 bg-slate-50 text-slate-900">
+              <tr>
+                <th class="py-3 px-4 font-semibold">Company</th>
+                <th class="py-3 px-4 font-semibold">Specialization</th>
+                <th class="py-3 px-4 font-semibold">Headquarters</th>
+                <th class="py-3 px-4 font-semibold">Founded</th>
+                <th class="py-3 px-4 font-semibold text-right">Profile</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
+              {enrichedCompanies.map((c) => (
+                <tr class="hover:bg-slate-50/70 transition">
+                  <td class="py-3.5 px-4 font-bold text-slate-900 flex items-center gap-2.5">
+                    <img
+                      src={c.logoUrl}
+                      alt={`${c.data.name} logo`}
+                      loading="lazy"
+                      decoding="async"
+                      width="20"
+                      height="20"
+                      class="h-5 w-5 object-contain rounded"
+                      onerror="this.style.display='none';"
+                    />
+                    <a href={`/companies/${c.id}`} class="hover:text-emerald-600 transition">
+                      {c.data.name}
+                    </a>
+                  </td>
+                  <td class="py-3.5 px-4 text-xs font-medium text-slate-700">{c.meta.tag}</td>
+                  <td class="py-3.5 px-4 text-xs">{c.data.headquarters}</td>
+                  <td class="py-3.5 px-4 text-xs">{c.data.founded_year}</td>
+                  <td class="py-3.5 px-4 text-right">
+                    <a href={`/companies/${c.id}`} class="font-semibold text-xs text-emerald-600 hover:text-emerald-800">
+                      View Profile &rarr;
+                    </a>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+    )}
+
+    <!-- Related Alternative Guides -->
+    {alternatives.length > 0 && (
+      <section>
+        <div class="flex items-center justify-between border-b border-slate-200 pb-4">
+          <div>
+            <h2 class="text-2xl font-bold tracking-tight text-slate-900 font-['Plus_Jakarta_Sans']">
+              Related Comparison Guides
+            </h2>
+            <p class="text-sm text-slate-500 mt-0.5">Side-by-side alternative articles featuring software in this category</p>
+          </div>
+          <a href="/alternatives" class="text-sm font-semibold text-emerald-600 hover:text-emerald-800 transition">
+            All comparisons &rarr;
+          </a>
+        </div>
+
+        <div class="mt-6 grid grid-cols-1 gap-5 md:grid-cols-3">
+          {alternatives.map((alt) => (
+            <a
+              href={`/alternatives/${alt.id}`}
+              class="group flex flex-col justify-between rounded-xl border border-slate-200 bg-white p-6 shadow-xs hover:border-slate-300 hover:shadow-sm transition"
+            >
+              <div>
+                <span class="inline-flex items-center rounded bg-slate-100 px-2 py-0.5 text-xs font-semibold text-slate-700">
+                  {alt.data.target_keyword}
+                </span>
+                <h3 class="mt-3 text-base font-bold text-slate-900 group-hover:text-emerald-600 transition">
+                  {alt.data.title}
+                </h3>
+              </div>
+              <span class="mt-4 text-xs font-semibold text-emerald-600">Read guide &rarr;</span>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
+    </div>
+  </div>
+</Layout>

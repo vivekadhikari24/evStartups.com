@@ -1,0 +1,310 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection, getEntry } from 'astro:content';
+import { getCompanyMeta, getCompanyDomain, getCompanyLogoUrl } from '../../utils/companyMeta';
+
+const companies = await getCollection('companies');
+
+const companiesWithCategory = await Promise.all(
+  companies.map(async (company) => {
+    const category = await getEntry(company.data.category);
+    const domain = getCompanyDomain(company.data.website_url, company.id);
+    const logoUrl = getCompanyLogoUrl(company.data.website_url, company.id, 128);
+    const meta = getCompanyMeta(company.id, company.data.tagline);
+
+    return {
+      ...company,
+      categoryData: category?.data,
+      domain,
+      logoUrl,
+      meta,
+    };
+  })
+);
+
+// Breadcrumb Schema
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Home',
+      item: 'https://www.evstartups.com',
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Companies',
+      item: 'https://www.evstartups.com/companies',
+    },
+  ],
+};
+
+// ItemList JSON-LD Schema listing each rendered company entity with its name and internal URL
+const itemListSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Commercial EV Fleet Software Companies Directory',
+  description: 'Browse verified commercial EV software providers, technical protocols, hardware compatibility, and deployment specializations.',
+  numberOfItems: companiesWithCategory.length,
+  itemListElement: companiesWithCategory.map((company, index) => ({
+    '@type': 'ListItem',
+    position: index + 1,
+    name: company.data.name,
+    url: `https://www.evstartups.com/companies/${company.id}`,
+  })),
+};
+
+const jsonLd = [breadcrumbSchema, itemListSchema];
+---
+
+<Layout
+  title="Commercial EV Fleet Software Companies | evStartups.com"
+  description="Browse verified commercial EV software providers, technical protocols, hardware compatibility, and deployment specializations."
+  jsonLd={jsonLd}
+>
+  <!-- Page Wrapper with bg-slate-50 min-h-screen -->
+  <div class="bg-slate-50 min-h-screen pb-20">
+    
+    <!-- Clean Header -->
+    <header class="border-b border-slate-200/80 bg-white py-14 sm:py-16">
+      <div class="mx-auto max-w-6xl px-4 sm:px-6">
+        <nav class="flex items-center gap-2 text-xs font-medium text-slate-500 mb-4">
+          <a href="/" class="hover:text-slate-900 transition">Home</a>
+          <span>/</span>
+          <span class="text-slate-900 font-semibold">Companies</span>
+        </nav>
+
+        <div class="max-w-3xl">
+          <h1 class="text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl lg:text-5xl font-['Plus_Jakarta_Sans']">
+            Commercial EV Software Companies
+          </h1>
+          <p class="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed">
+            Browse verified commercial EV software providers, technical protocols, hardware compatibility, and deployment specializations.
+          </p>
+
+          <!-- Search Box -->
+          <div class="mt-8 max-w-lg">
+            <div class="relative">
+              <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-400">
+                <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+              </div>
+              <input
+                type="text"
+                id="companyFilterInput"
+                aria-label="Filter companies by name, location, or specialty"
+                placeholder="Search by company name, location, protocol, or specialty..."
+                class="block w-full rounded-xl border border-slate-200 bg-white py-3 pl-10 pr-4 text-sm text-slate-900 placeholder:text-slate-400 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/10 transition shadow-xs"
+              />
+            </div>
+
+            <!-- Fast-Filter Pill Buttons -->
+            <div class="mt-4 flex flex-wrap items-center gap-2" id="filterPillsContainer">
+              <button
+                type="button"
+                data-filter="all"
+                class="filter-pill bg-emerald-500 text-slate-950 font-bold border border-emerald-500 text-sm rounded-full px-4 py-1.5 transition shadow-xs cursor-pointer"
+              >
+                All
+              </button>
+              <button
+                type="button"
+                data-filter="Charging Management (CPMS)"
+                class="filter-pill bg-white border border-slate-200 text-sm text-slate-600 rounded-full px-4 py-1.5 hover:bg-slate-50 transition cursor-pointer"
+              >
+                Charging Management (CPMS)
+              </button>
+              <button
+                type="button"
+                data-filter="Fleet Telematics"
+                class="filter-pill bg-white border border-slate-200 text-sm text-slate-600 rounded-full px-4 py-1.5 hover:bg-slate-50 transition cursor-pointer"
+              >
+                Fleet Telematics
+              </button>
+              <button
+                type="button"
+                data-filter="Hardware-Agnostic"
+                class="filter-pill bg-white border border-slate-200 text-sm text-slate-600 rounded-full px-4 py-1.5 hover:bg-slate-50 transition cursor-pointer"
+              >
+                Hardware-Agnostic
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Companies Grid -->
+    <main class="mx-auto max-w-6xl px-4 py-12 sm:px-6 space-y-6">
+      <div class="flex items-center justify-between border-b border-slate-200 pb-4">
+        <span id="companyCountText" class="text-xs font-medium text-slate-500">
+          Showing verified commercial platforms
+        </span>
+        <span class="text-xs text-slate-400">Verified B2B Directory</span>
+      </div>
+
+      <!-- 3-Column Responsive Grid -->
+      <div id="companyCardsGrid" class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {companiesWithCategory.map((company) => {
+          const initials = company.data.name.slice(0, 2).toUpperCase();
+          return (
+            <a
+              href={`/companies/${company.id}`}
+              class="company-card-elem group flex flex-col justify-between rounded-xl border border-slate-200 bg-white p-6 shadow-xs hover:border-emerald-500 hover:shadow-md transition-all duration-200"
+              data-search={`${company.data.name} ${company.data.headquarters} ${company.meta.microCategory} ${company.meta.filterTag} ${company.meta.specs} ${company.meta.summary}`.toLowerCase()}
+              data-filter={company.meta.filterTag}
+            >
+              <div>
+                <!-- Minimalist Category Micro-Badge -->
+                <div class="text-[10px] uppercase tracking-wider text-slate-500 font-semibold mb-2">
+                  {company.meta.microCategory}
+                </div>
+
+                <!-- Company Logo & Name Header -->
+                <div class="flex items-center gap-3.5">
+                  <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-slate-100 bg-slate-50 p-2 shadow-2xs group-hover:border-emerald-100 transition">
+                    <img
+                      src={company.logoUrl}
+                      alt={`${company.data.name} logo`}
+                      loading="lazy"
+                      decoding="async"
+                      width="32"
+                      height="32"
+                      class="h-7 w-7 object-contain rounded"
+                      onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                    />
+                    <span class="hidden h-7 w-7 items-center justify-center font-bold text-xs text-slate-700">
+                      {initials}
+                    </span>
+                  </div>
+
+                  <div>
+                    <h2 class="text-base font-bold text-slate-900 group-hover:text-emerald-600 transition font-['Plus_Jakarta_Sans']">
+                      {company.data.name}
+                    </h2>
+                    <span class="text-xs text-slate-500">
+                      {company.data.headquarters}
+                    </span>
+                  </div>
+                </div>
+
+                <!-- Sleek Inline Technical Specs String -->
+                <div class="mt-3.5 text-sm text-slate-500 font-medium tracking-tight">
+                  {company.meta.specs}
+                </div>
+
+                <!-- Semantic Description Paragraph -->
+                <p class="mt-2 text-xs text-slate-600 leading-relaxed">
+                  {company.meta.summary}
+                </p>
+              </div>
+
+              <!-- Internal Routing Footer Link -->
+              <div class="mt-6 border-t border-slate-100 pt-4">
+                <span class="text-xs font-semibold text-emerald-600 group-hover:text-emerald-700 transition">
+                  View Profile &rarr;
+                </span>
+              </div>
+            </a>
+          );
+        })}
+
+        <!-- 8th Card: 'Suggest a Company' (Flush Grid Balance: spans 2 columns on desktop) -->
+        <a
+          href="mailto:submissions@evstartups.com?subject=Suggest%20an%20EV%20Startup&body=Company%20Name:%0AWebsite:%0ASpecialization:%0A"
+          class="border-2 border-dashed border-slate-300 bg-transparent flex flex-col lg:flex-row items-center justify-center lg:justify-between text-center lg:text-left p-6 lg:px-8 rounded-xl hover:border-emerald-400 hover:bg-emerald-50/50 transition-all cursor-pointer min-h-[220px] lg:min-h-0 sm:col-span-1 lg:col-span-2 group gap-4"
+        >
+          <div class="flex flex-col lg:flex-row items-center gap-4">
+            <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-slate-100 group-hover:bg-emerald-100 text-slate-500 group-hover:text-emerald-700 transition">
+              <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+              </svg>
+            </div>
+            <div>
+              <h3 class="text-base font-bold text-slate-900 group-hover:text-emerald-700 transition font-['Plus_Jakarta_Sans']">
+                Suggest an EV Startup
+              </h3>
+              <p class="mt-1 text-xs text-slate-500 leading-relaxed max-w-sm">
+                Submit an enterprise EV software provider or hardware-agnostic platform for editorial review.
+              </p>
+            </div>
+          </div>
+          <span class="shrink-0 inline-flex items-center text-xs font-semibold text-emerald-600 group-hover:text-emerald-800 transition">
+            Submit Platform &rarr;
+          </span>
+        </a>
+      </div>
+
+      <div id="emptyResultsBox" class="hidden rounded-xl border border-dashed border-slate-300 p-8 text-center mt-6 bg-white">
+        <p class="text-sm font-medium text-slate-600">No companies found matching your search.</p>
+      </div>
+    </main>
+  </div>
+
+  <script is:inline>
+    const filterInput = document.getElementById('companyFilterInput');
+    const cards = document.querySelectorAll('.company-card-elem');
+    const countLabel = document.getElementById('companyCountText');
+    const emptyBox = document.getElementById('emptyResultsBox');
+    const filterPills = document.querySelectorAll('.filter-pill');
+
+    let activeFilter = 'all';
+    let searchQuery = '';
+
+    function updateDirectory() {
+      let matched = 0;
+      cards.forEach((card) => {
+        const text = card.getAttribute('data-search') || '';
+        const tags = card.getAttribute('data-filter') || '';
+
+        const matchesSearch = !searchQuery || text.includes(searchQuery);
+        const matchesFilter = activeFilter === 'all' || tags.includes(activeFilter);
+
+        if (matchesSearch && matchesFilter) {
+          card.style.display = 'flex';
+          matched++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      if (countLabel) {
+        if (searchQuery || activeFilter !== 'all') {
+          countLabel.textContent = `Showing ${matched} matching platform${matched === 1 ? '' : 's'}`;
+        } else {
+          countLabel.textContent = 'Showing verified commercial platforms';
+        }
+      }
+
+      if (emptyBox) {
+        emptyBox.style.display = matched === 0 ? 'block' : 'none';
+      }
+    }
+
+    if (filterInput) {
+      filterInput.addEventListener('input', (e) => {
+        searchQuery = e.target.value.toLowerCase().trim();
+        updateDirectory();
+      });
+    }
+
+    filterPills.forEach((pill) => {
+      pill.addEventListener('click', () => {
+        filterPills.forEach((p) => {
+          p.classList.remove('bg-emerald-500', 'text-slate-950', 'font-bold', 'border-emerald-500', 'shadow-xs');
+          p.classList.add('bg-white', 'text-slate-600', 'border-slate-200');
+        });
+
+        pill.classList.remove('bg-white', 'text-slate-600', 'border-slate-200');
+        pill.classList.add('bg-emerald-500', 'text-slate-950', 'font-bold', 'border-emerald-500', 'shadow-xs');
+
+        activeFilter = pill.getAttribute('data-filter') || 'all';
+        updateDirectory();
+      });
+    });
+  </script>
+</Layout>

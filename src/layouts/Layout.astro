@@ -1,0 +1,254 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  canonicalUrl?: string;
+  jsonLd?: Record<string, any> | Array<Record<string, any>>;
+  noindex?: boolean;
+}
+
+const {
+  title = 'EV Fleet Software Directory | Find & Compare EV Charging Tools',
+  description = 'Compare top commercial EV fleet charging software, depot management tools, and telematics platforms for modern fleet operators.',
+  canonicalUrl,
+  jsonLd,
+  noindex = false,
+} = Astro.props;
+
+const siteUrl = (Astro.site ? Astro.site.origin : 'https://www.evstartups.com').replace(/\/$/, '');
+const pathname = Astro.url.pathname.replace(/\/$/, '');
+const computedCanonical = canonicalUrl || `${siteUrl}${pathname ? pathname : ''}`;
+const ogImageUrl = `${siteUrl}/images/hero-bg.webp`;
+---
+
+<!doctype html>
+<html lang="en" class="h-full bg-white font-sans antialiased text-slate-900 selection:bg-emerald-400 selection:text-slate-950">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    
+    <!-- Primary SEO Meta Tags -->
+    <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+    {noindex ? (
+      <meta name="robots" content="noindex, follow" />
+    ) : (
+      <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    )}
+    <meta name="theme-color" content="#0f172a" />
+    <link rel="canonical" href={computedCanonical} />
+
+    <!-- Open Graph / Facebook / LinkedIn -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={computedCanonical} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:site_name" content="evStartups.com" />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="evStartups.com - Commercial EV Fleet Software Directory" />
+
+    <!-- Twitter Cards -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={computedCanonical} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={ogImageUrl} />
+
+    <!-- Performance & Font Optimization DNS Pre-resolutions -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+    <link rel="dns-prefetch" href="https://www.google.com" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" media="print" onload="this.media='all'" />
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" />
+    </noscript>
+
+    {jsonLd && (
+      <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    )}
+  </head>
+  <body class="flex min-h-full flex-col bg-white text-slate-900">
+    <!-- Crunchbase-Style Dark Navigation Header with Electric Emerald Accent -->
+    <header class="sticky top-0 z-40 border-b border-slate-800/80 bg-[#080d1a]/95 backdrop-blur-md">
+      <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3.5 sm:px-6">
+        <a href="/" class="flex items-center gap-2.5 group">
+          <div class="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-400 to-emerald-600 text-slate-950 font-bold text-sm shadow-md shadow-emerald-500/20 group-hover:scale-105 transition">
+            ⚡
+          </div>
+          <div class="flex flex-col">
+            <span class="text-base font-bold tracking-tight text-white font-['Plus_Jakarta_Sans']">
+              evStartups<span class="text-emerald-400">.com</span>
+            </span>
+            <span class="text-[10px] font-medium text-slate-400">Commercial EV Fleet Directory</span>
+          </div>
+        </a>
+
+        <nav class="flex items-center gap-1 sm:gap-4 text-sm font-medium text-slate-300">
+          <a
+            href="/categories"
+            class="rounded-lg px-3 py-1.5 transition hover:bg-slate-800/60 hover:text-white"
+          >
+            Categories
+          </a>
+          <a
+            href="/companies"
+            class="rounded-lg px-3 py-1.5 transition hover:bg-slate-800/60 hover:text-white"
+          >
+            Companies
+          </a>
+          <a
+            href="/alternatives"
+            class="rounded-lg px-3 py-1.5 transition hover:bg-slate-800/60 hover:text-white"
+          >
+            Comparisons
+          </a>
+          <a
+            href="/companies"
+            class="ml-2 hidden sm:inline-flex items-center rounded-lg bg-emerald-500 px-3.5 py-1.5 text-xs font-bold text-slate-950 shadow-sm shadow-emerald-500/20 transition hover:bg-emerald-400"
+          >
+            Browse Directory
+          </a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-1">
+      <slot />
+    </main>
+
+    <!-- Crunchbase-Style Dark Footer with Emerald & Mint Accents -->
+    <footer class="border-t border-slate-800/80 bg-[#080d1a] text-slate-400">
+      <div class="mx-auto max-w-6xl px-4 py-14 sm:px-6">
+        <div class="grid grid-cols-1 gap-10 md:grid-cols-4">
+          <div class="md:col-span-2">
+            <a href="/" class="inline-flex items-center gap-2.5 group">
+              <div class="flex h-8 w-8 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-400 to-emerald-600 text-slate-950 font-bold text-xs shadow-md shadow-emerald-500/20 group-hover:scale-105 transition">
+                ⚡
+              </div>
+              <div class="flex flex-col">
+                <span class="text-base font-bold tracking-tight text-white font-['Plus_Jakarta_Sans']">
+                  evStartups<span class="text-emerald-400">.com</span>
+                </span>
+                <span class="text-[10px] font-medium text-slate-400">
+                  Commercial EV Fleet & Charging Directory
+                </span>
+              </div>
+            </a>
+            <p class="mt-4 max-w-md text-xs leading-relaxed text-slate-400">
+              An independent B2B research directory and comparison engine for commercial fleet operators, energy managers, and depot engineers evaluating EV charging management platforms.
+            </p>
+            <div class="mt-4 flex items-center gap-2">
+              <span class="inline-flex items-center gap-1.5 rounded-full bg-emerald-950/60 px-3 py-1 text-[11px] font-medium text-emerald-300 border border-emerald-800/40">
+                <span class="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                100% Hardware-Agnostic & Independent
+              </span>
+            </div>
+          </div>
+
+          <div>
+            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-200 font-['Plus_Jakarta_Sans']">
+              Directory
+            </h3>
+            <ul class="mt-4 space-y-2.5 text-xs text-slate-400">
+              <li>
+                <a href="/categories/ev-fleet-charging-software" class="hover:text-emerald-400 transition">
+                  Fleet Charging Software
+                </a>
+              </li>
+              <li>
+                <a href="/categories/commercial-ev-charging-hardware" class="hover:text-emerald-400 transition">
+                  Commercial Charging Hardware
+                </a>
+              </li>
+              <li>
+                <a href="/categories/fleet-telematics-diagnostics" class="hover:text-emerald-400 transition">
+                  Telematics & Diagnostics
+                </a>
+              </li>
+              <li>
+                <a href="/categories/white-label-cpms-roaming" class="hover:text-emerald-400 transition">
+                  White-Label CPMS Platforms
+                </a>
+              </li>
+              <li>
+                <a href="/categories" class="hover:text-emerald-400 transition">
+                  Browse All Categories
+                </a>
+              </li>
+              <li>
+                <a href="/companies" class="hover:text-emerald-400 transition">
+                  All Companies & Hardware
+                </a>
+              </li>
+              <li>
+                <a href="/alternatives" class="hover:text-emerald-400 transition">
+                  Competitor Comparisons
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-200 font-['Plus_Jakarta_Sans']">
+              Key Comparisons
+            </h3>
+            <ul class="mt-4 space-y-2.5 text-xs text-slate-400">
+              <li>
+                <a href="/alternatives/abb-vs-kempower" class="hover:text-emerald-400 transition">
+                  ABB vs Kempower DC Fast
+                </a>
+              </li>
+              <li>
+                <a href="/alternatives/samsara-vs-geotab" class="hover:text-emerald-400 transition">
+                  Samsara vs Geotab EV
+                </a>
+              </li>
+              <li>
+                <a href="/alternatives/ampcontrol-vs-the-mobility-house" class="hover:text-emerald-400 transition">
+                  Ampcontrol vs Mobility House
+                </a>
+              </li>
+              <li>
+                <a href="/alternatives/driivz-vs-ampeco" class="hover:text-emerald-400 transition">
+                  Driivz vs AMPECO CPMS
+                </a>
+              </li>
+              <li>
+                <a href="/alternatives/monta-vs-ampeco" class="hover:text-emerald-400 transition">
+                  Monta vs AMPECO CPMS
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="mt-12 border-t border-slate-800/80 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-500">
+          <div class="flex flex-col sm:flex-row items-center gap-2 sm:gap-4">
+            <p>&copy; {new Date().getFullYear()} evStartups.com &bull; Independent B2B EV software directory.</p>
+            <div class="flex items-center gap-3 text-slate-400">
+              <a href="/privacy" class="hover:text-emerald-400 transition">Privacy Policy</a>
+              <span>&bull;</span>
+              <a href="/terms" class="hover:text-emerald-400 transition">Terms of Service</a>
+              <span>&bull;</span>
+              <a href="/disclaimer" class="hover:text-emerald-400 transition">Earnings Disclaimer</a>
+              <span>&bull;</span>
+              <a href="/contact" class="hover:text-emerald-400 transition">Contact</a>
+            </div>
+          </div>
+          <p>Product names and logos are trademarks of their respective owners.</p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,86 @@
+{
+  "name": "Monta",
+  "website_url": "https://monta.com",
+  "founded_year": 2020,
+  "headquarters": "Copenhagen, Denmark",
+  "category": "ev-fleet-charging-software",
+  "tagline": "All-in-One EV Charging Platform, Depot Energy Management & Driver Experience",
+  "overview": "Monta is one of Europe's fastest-growing EV charging software platforms, powering hundreds of thousands of commercial, depot, and public charge points. Founded in 2020 in Copenhagen by Casper Rasmussen and Anders Pedersen, Monta provides an operating system (Monta Hub) that bridges hardware manufacturers, charge point operators (CPOs), and commercial fleets. The platform combines intelligent depot load balancing, dynamic spot-price energy optimization, automated employee home-charging reimbursement, and seamless driver roaming across Europe, the UK, and North America.",
+  "key_features": [
+    {
+      "title": "Spot-Price & Green Energy Smart Charging",
+      "description": "Automatically schedules charging sessions during the cheapest wholesale electricity tariff windows (such as Nord Pool and EPEX Spot) and maximizes consumption of renewable energy."
+    },
+    {
+      "title": "Depot Dynamic Load Balancing & Power Sharing",
+      "description": "Intelligently distributes available electrical capacity across active depot charge points to eliminate breaker trips and avoid expensive grid transformer upgrades."
+    },
+    {
+      "title": "Automated Take-Home Driver Reimbursement",
+      "description": "Tracks exact kilowatt-hours consumed by employees charging company vehicles at home and automates direct utility expense reimbursements to their bank accounts."
+    },
+    {
+      "title": "Hardware-Agnostic with 500+ Certified Models",
+      "description": "Features the industry's broadest pre-integrated OCPP hardware library, supporting over 500 AC and DC charger models from major global EVSE manufacturers."
+    },
+    {
+      "title": "Hybrid Depot Monetization & OCPI Roaming",
+      "description": "Enables fleet operators to open private depot chargers to the public or third-party contractors during off-peak hours to generate ancillary charging revenue."
+    }
+  ],
+  "protocols": [
+    "OCPP 1.6J",
+    "OCPP 2.0.1",
+    "OCPI 2.2.1 (Roaming)",
+    "ISO 15118 (Plug & Charge)",
+    "REST APIs & Webhooks"
+  ],
+  "ideal_for": [
+    "Commercial Fleets with Take-Home Vehicle Programs",
+    "European & Global Commercial Fleet Depots",
+    "Mixed Private & Public Commercial Depots",
+    "Corporate Campus & Employee Fleet Operations",
+    "Delivery & Field Service Van Operators"
+  ],
+  "hardware_compatibility": "Industry-leading compatibility with over 500+ certified OCPP charger models from ABB, Alfen, Easee, Kempower, Schneider Electric, Siemens, Wallbox, and Zaptec.",
+  "telematics_integrations": [
+    "Geotab",
+    "Webfleet",
+    "Fleetio",
+    "Direct OEM Vehicle Telematics via Monta Connect"
+  ],
+  "pricing_model": "Predictable monthly SaaS subscription per connected charge point (Business and Enterprise tiers), with transparent transaction fee options for monetized public charging.",
+  "pros": [
+    "Best-in-class integration with European and international wholesale electricity spot-markets",
+    "Unmatched hardware compatibility with 500+ pre-certified charger models",
+    "Turnkey driver home reimbursement module that deposits funds directly to employee accounts",
+    "Top-rated driver mobile application on iOS and Android for seamless depot and en-route charging",
+    "Hybrid monetization allowing depots to earn revenue from idle chargers"
+  ],
+  "considerations": [
+    "Advanced spot-price integration features are most deeply developed in European energy markets",
+    "Feature-rich administration dashboard requires initial onboarding configuration for enterprise rule-setting"
+  ],
+  "faqs": [
+    {
+      "question": "What is Monta and what does it do for commercial EV fleets?",
+      "answer": "Monta is an all-in-one EV charging operating system that manages charge points, fleet depot energy loads, automated driver payments, and charging hardware. For commercial fleets, Monta schedules charging when power is cheapest, ensures vehicles are charged by morning dispatch, and handles take-home vehicle driver reimbursement."
+    },
+    {
+      "question": "How does Monta optimize charging based on electricity spot prices?",
+      "answer": "Monta integrates directly with wholesale energy markets (like Nord Pool and EPEX Spot). Fleet managers set their required departure time and target battery percentage, and Monta's algorithm automatically pauses and starts charging during the lowest-cost kilowatt-hour periods."
+    },
+    {
+      "question": "How does Monta handle employee take-home fleet vehicle charging?",
+      "answer": "When employees charge company vehicles at home, Monta connects to their home EV charger, measures the exact energy consumed by the fleet car, matches it to their home electricity utility tariff, and automatically deposits the reimbursement directly into the employee's bank account."
+    },
+    {
+      "question": "Can private fleet depots monetize idle chargers using Monta?",
+      "answer": "Yes. Monta includes custom access scheduling. A delivery fleet can reserve all chargers exclusively for its vans between 6 PM and 6 AM, and automatically open the chargers to public or contractor charging during daytime hours with custom pricing."
+    },
+    {
+      "question": "Which EV charger brands work with Monta?",
+      "answer": "Monta is completely hardware-agnostic and supports over 500 charger models that communicate via OCPP 1.6J or OCPP 2.0.1, including ABB, Alfen, Easee, Kempower, Schneider Electric, Wallbox, and Zaptec."
+    }
+  ]
+}
